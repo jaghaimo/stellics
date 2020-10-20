@@ -114,9 +114,9 @@ public class CourierIntel extends BaseIntelPlugin {
     }
 
     private void showCargo(TooltipMakerAPI info) {
-        CargoAPI cargo = storage.getCargo();
-        // FIXME use cargo directly in >0.9.1a
-        info.showCargo(cargo.createCopy(), cargo.getStacksCopy().size(), false, 5f);
+        CargoAPI cargo = storage.getCargo().createCopy();
+        cargo.sort();
+        info.showCargo(cargo, cargo.getStacksCopy().size(), false, 5f);
     }
 
     private void showShips(TooltipMakerAPI info) {
