@@ -44,16 +44,6 @@ public class CargoHelper {
         return fleetCost;
     }
 
-    public static CargoAPI getCargo(List<CargoStackAPI> cargoStacks) {
-        CargoAPI cargo = Global.getFactory().createCargo(true);
-        for (CargoStackAPI cargoStack : cargoStacks) {
-            cargo.addFromStack(cargoStack);
-        }
-        cargo.sort();
-
-        return cargo;
-    }
-
     private static int getCost(int spaceUsed, CostType type) {
         String infix = Misc.ucFirst(type.name().toLowerCase());
         int cost = Global.getSettings().getInt("warehouse" + infix + "Upkeep");
