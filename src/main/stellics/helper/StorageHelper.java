@@ -17,22 +17,36 @@ import stellics.CourierIntel;
 
 public class StorageHelper {
 
-    public static CargoAPI getCombinedCargo() {
+    public static CargoAPI getAllCargo() {
         CargoAPI cargo = Global.getFactory().createCargo(true);
         List<SubmarketAPI> submarkets = getAllWithAccess();
         for (SubmarketAPI submarket : submarkets) {
             cargo.addAll(submarket.getCargo());
         }
+        cargo.sort();
         return cargo;
     }
 
-    public static List<FleetMemberAPI> getCombinedShips() {
+    public static int getAllCargoCount() {
+        CargoAPI cargo = getAllCargo();
+        return CargoHelper.calculateCargoSpace(cargo);
+    }
+
+    public static List<FleetMemberAPI> getAllShips() {
         List<FleetMemberAPI> ships = new ArrayList<>();
         List<SubmarketAPI> submarkets = getAllWithAccess();
         for (SubmarketAPI submarket : submarkets) {
             ships.addAll(submarket.getCargo().getMothballedShips().getMembersListCopy());
         }
         return ships;
+    }
+
+    public static int getAllShipCount() {
+        return getAllShips().size();
+    }
+
+    public static int getStorageCount() {
+        return Global.getSector().getIntelManager().getIntelCount(CourierIntel.class, false);
     }
 
     public static void refreshIntel() {
