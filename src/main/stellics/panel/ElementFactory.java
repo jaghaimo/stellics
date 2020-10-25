@@ -3,9 +3,10 @@ package stellics.panel;
 import com.fs.starfarer.api.ui.CustomPanelAPI;
 
 import stellics.StorageBoard;
-import stellics.FilterManager.BoardView;
+import stellics.filter.FilterManager;
 
 public class ElementFactory {
+
     private StorageBoard board;
     private CustomPanelAPI panel;
     private float height;
@@ -17,16 +18,24 @@ public class ElementFactory {
     }
 
     public BoardElement getControlColumn(float width) {
-        return new ControlColumn(board, panel, width, height);
-    }
-
-    public BoardElement getDisplayColumn(BoardView boardView, float rightWidth) {
-        switch (boardView) {
+        FilterManager filterManager = board.getFilterManager();
+        switch (filterManager.getBoardView()) {
             case Ships:
-                return new ShipColumn(board, panel, rightWidth, height);
+                return new ShipControl(board, panel, width, height);
             case Cargo:
             default:
-                return new CargoColumn(board, panel, rightWidth, height);
+                return new CargoControl(board, panel, width, height);
+        }
+    }
+
+    public BoardElement getDisplayColumn(float width) {
+        FilterManager filterManager = board.getFilterManager();
+        switch (filterManager.getBoardView()) {
+            case Ships:
+                return new ShipDisplay(board, panel, width, height);
+            case Cargo:
+            default:
+                return new CargoDisplay(board, panel, width, height);
         }
     }
 }

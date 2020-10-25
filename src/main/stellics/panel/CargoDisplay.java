@@ -8,11 +8,11 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import stellics.StorageBoard;
 import stellics.helper.StorageHelper;
 
-public class CargoColumn extends BoardElement {
+public class CargoDisplay extends BoardElement {
 
     private CargoAPI cargo;
 
-    public CargoColumn(StorageBoard board, CustomPanelAPI panel, float width, float height) {
+    public CargoDisplay(StorageBoard board, CustomPanelAPI panel, float width, float height) {
         super(board, panel, width, height);
         cargo = StorageHelper.getAllCargo();
     }

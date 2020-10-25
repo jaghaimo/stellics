@@ -1,4 +1,4 @@
-package stellics;
+package stellics.filter;
 
 public class FilterManager {
     public enum BoardView {

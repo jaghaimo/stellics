@@ -11,6 +11,8 @@ import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 
+import stellics.filter.FilterManager;
+import stellics.handler.ButtonHandler;
 import stellics.helper.StorageHelper;
 import stellics.panel.BoardElement;
 import stellics.panel.ElementFactory;
@@ -35,7 +37,10 @@ public class StorageBoard extends BaseIntelPlugin {
 
     @Override
     public void buttonPressConfirmed(Object buttonId, IntelUIAPI ui) {
-        // TODO
+        if (buttonId instanceof ButtonHandler) {
+            ButtonHandler handler = (ButtonHandler) buttonId;
+            handler.handle(filterManager, ui);
+        }
     }
 
     @Override
@@ -51,13 +56,14 @@ public class StorageBoard extends BaseIntelPlugin {
 
     @Override
     public void createLargeDescription(CustomPanelAPI panel, float width, float height) {
-        float leftWidth = 200;
-        float rightWidth = width - leftWidth;
+        float spacer = 10;
+        float controlWidth = 180;
+        float displayWidth = width - controlWidth - spacer;
         ElementFactory factory = new ElementFactory(this, panel, height);
-        BoardElement displays = factory.getDisplayColumn(filterManager.getBoardView(), rightWidth);
-        BoardElement controls = factory.getControlColumn(leftWidth);
-        displays.render();
+        BoardElement controls = factory.getControlColumn(controlWidth);
+        BoardElement displays = factory.getDisplayColumn(displayWidth);
         controls.render();
+        displays.render();
     }
 
     @Override

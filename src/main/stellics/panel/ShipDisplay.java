@@ -10,11 +10,11 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import stellics.StorageBoard;
 import stellics.helper.StorageHelper;
 
-public class ShipColumn extends BoardElement {
+public class ShipDisplay extends BoardElement {
 
     private List<FleetMemberAPI> ships;
 
-    public ShipColumn(StorageBoard board, CustomPanelAPI panel, float width, float height) {
+    public ShipDisplay(StorageBoard board, CustomPanelAPI panel, float width, float height) {
         super(board, panel, width, height);
         ships = StorageHelper.getAllShips();
     }
@@ -23,10 +23,10 @@ public class ShipColumn extends BoardElement {
     public void render() {
         TooltipMakerAPI header = panel.createUIElement(width, 20f, false);
         header.addSectionHeading("Ships", Alignment.MID, 5f);
-        panel.addUIElement(header).inTR(0, 0);
+        panel.addUIElement(header).inTL(0, 0);
 
         TooltipMakerAPI shipView = panel.createUIElement(width, height - 25f, true);
         shipView.showShips(ships, ships.size(), false, 5f);
-        panel.addUIElement(shipView).inTR(0, 25f);
+        panel.addUIElement(shipView).inTL(0, 25f);
     }
 }
