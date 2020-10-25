@@ -1,5 +1,6 @@
 * unreleased - 1.1.0
 - Display sorted cargo on intel tab
+- Move tag_data.json to correct location
 
 * Fri Oct 16 2020 - 1.0.0
 - Initial release with courier services
