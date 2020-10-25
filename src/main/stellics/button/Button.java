@@ -29,4 +29,8 @@ public abstract class Button {
     public ButtonState getState() {
         return state;
     }
+
+    public boolean isDisabled() {
+        return ButtonState.DISABLED.equals(state);
+    }
 }
