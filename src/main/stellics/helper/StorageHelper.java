@@ -1,10 +1,12 @@
 package stellics.helper;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.CargoAPI;
+import com.fs.starfarer.api.campaign.CargoStackAPI;
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import com.fs.starfarer.api.campaign.comm.IntelManagerAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
@@ -14,14 +16,26 @@ import com.fs.starfarer.api.impl.campaign.ids.Submarkets;
 import com.fs.starfarer.api.util.Misc;
 
 import stellics.CourierIntel;
+import stellics.filter.CargoStackFilter;
+import stellics.filter.FleetMemberFilter;
 
 public class StorageHelper {
 
     public static CargoAPI getAllCargo() {
-        CargoAPI cargo = Global.getFactory().createCargo(true);
+        List<CargoStackFilter> filters = Collections.emptyList();
+        return getAllCargo(filters);
+    }
+
+    public static CargoAPI getAllCargo(List<CargoStackFilter> filters) {
+        List<CargoStackAPI> cargoStacks = new ArrayList<>();
         List<SubmarketAPI> submarkets = getAllWithAccess();
         for (SubmarketAPI submarket : submarkets) {
-            cargo.addAll(submarket.getCargo());
+            cargoStacks.addAll(submarket.getCargo().getStacksCopy());
+        }
+        CollectionHelper.reduce(cargoStacks, filters);
+        CargoAPI cargo = Global.getFactory().createCargo(true);
+        for (CargoStackAPI cargoStack : cargoStacks) {
+            cargo.addFromStack(cargoStack);
         }
         cargo.sort();
         return cargo;
@@ -33,11 +47,17 @@ public class StorageHelper {
     }
 
     public static List<FleetMemberAPI> getAllShips() {
+        List<FleetMemberFilter> filters = new ArrayList<>();
+        return getAllShips(filters);
+    }
+
+    public static List<FleetMemberAPI> getAllShips(List<FleetMemberFilter> filters) {
         List<FleetMemberAPI> ships = new ArrayList<>();
         List<SubmarketAPI> submarkets = getAllWithAccess();
         for (SubmarketAPI submarket : submarkets) {
             ships.addAll(submarket.getCargo().getMothballedShips().getMembersListCopy());
         }
+        CollectionHelper.reduce(ships, filters);
         return ships;
     }
 

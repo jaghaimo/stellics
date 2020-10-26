@@ -11,15 +11,22 @@ import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 
-import stellics.filter.FilterManager;
-import stellics.handler.ButtonHandler;
+import stellics.button.ButtonHandler;
+import stellics.button.ButtonManager;
+import stellics.filter.FilterFactory;
 import stellics.helper.StorageHelper;
 import stellics.panel.BoardElement;
 import stellics.panel.ElementFactory;
 
 public class StorageBoard extends BaseIntelPlugin {
 
-    private FilterManager filterManager;
+    public enum Pane {
+        Cargo, Ships;
+    }
+
+    private Pane activePane;
+    private ButtonManager buttonManager;
+    private FilterFactory filterFactory;
 
     public static StorageBoard getInstance() {
         IntelInfoPlugin intel = Global.getSector().getIntelManager().getFirstIntel(StorageBoard.class);
@@ -32,14 +39,16 @@ public class StorageBoard extends BaseIntelPlugin {
     }
 
     public StorageBoard() {
-        filterManager = new FilterManager();
+        activePane = Pane.Cargo;
+        buttonManager = new ButtonManager();
+        filterFactory = new FilterFactory(buttonManager);
     }
 
     @Override
     public void buttonPressConfirmed(Object buttonId, IntelUIAPI ui) {
         if (buttonId instanceof ButtonHandler) {
             ButtonHandler handler = (ButtonHandler) buttonId;
-            handler.handle(filterManager, ui);
+            handler.handle(this, ui);
         }
     }
 
@@ -93,8 +102,20 @@ public class StorageBoard extends BaseIntelPlugin {
         return IntelSortTier.TIER_0;
     }
 
-    public FilterManager getFilterManager() {
-        return filterManager;
+    public Pane getActivePane() {
+        return activePane;
+    }
+
+    public ButtonManager getButtonManager() {
+        return buttonManager;
+    }
+
+    public FilterFactory getFilterFactory() {
+        return filterFactory;
+    }
+
+    public void togglePane() {
+        activePane = Pane.Cargo.equals(activePane) ? Pane.Ships : Pane.Cargo;
     }
 
     private String getDescription(int cargoCount, int shipCount, int storageCount) {

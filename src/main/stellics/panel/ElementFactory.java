@@ -3,7 +3,6 @@ package stellics.panel;
 import com.fs.starfarer.api.ui.CustomPanelAPI;
 
 import stellics.StorageBoard;
-import stellics.filter.FilterManager;
 
 public class ElementFactory {
 
@@ -18,8 +17,7 @@ public class ElementFactory {
     }
 
     public BoardElement getControlColumn(float width) {
-        FilterManager filterManager = board.getFilterManager();
-        switch (filterManager.getBoardView()) {
+        switch (board.getActivePane()) {
             case Ships:
                 return new ShipControl(board, panel, width, height);
             case Cargo:
@@ -29,8 +27,7 @@ public class ElementFactory {
     }
 
     public BoardElement getDisplayColumn(float width) {
-        FilterManager filterManager = board.getFilterManager();
-        switch (filterManager.getBoardView()) {
+        switch (board.getActivePane()) {
             case Ships:
                 return new ShipDisplay(board, panel, width, height);
             case Cargo:

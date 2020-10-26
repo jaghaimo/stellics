@@ -1,36 +1,52 @@
 package stellics.button;
 
-import stellics.handler.ButtonHandler;
+import com.fs.starfarer.api.ui.IntelUIAPI;
 
-public abstract class Button {
+import stellics.StorageBoard;
+import stellics.filter.DummyFilter;
+
+public class Button implements ButtonHandler {
 
     private String title;
-    private ButtonHandler handler;
-    private ButtonState state;
+    private boolean isEnabled;
+    private boolean isStateOn;
+
+    public Button() {
+        isEnabled = true;
+        isStateOn = true;
+    }
 
     public Button(String title) {
         this.title = title;
     }
 
-    public Button(String title, ButtonHandler handler, ButtonState state) {
-        this.title = title;
-        this.handler = handler;
-        this.state = state;
+    public Object getFilter() {
+        return new DummyFilter();
     }
 
     public String getTitle() {
-        return title;
+        String onOff = isStateOn ? ": On" : ": Off";
+        return title + onOff;
     }
 
-    public ButtonHandler getHandler() {
-        return handler;
+    public boolean isEnabled() {
+        return isEnabled;
     }
 
-    public ButtonState getState() {
-        return state;
+    public boolean isStateOn() {
+        return isStateOn;
     }
 
-    public boolean isDisabled() {
-        return ButtonState.DISABLED.equals(state);
+    @Override
+    public void handle(StorageBoard board, IntelUIAPI ui) {
+        if (!isEnabled) {
+            return;
+        }
+        toggle();
+        ui.updateUIForItem(board);
+    }
+
+    public void toggle() {
+        isStateOn = !isStateOn;
     }
 }
