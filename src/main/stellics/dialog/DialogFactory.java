@@ -12,6 +12,8 @@ import stellics.transfer.CargoTransferAction;
 import stellics.transfer.DirectCargoTransfer;
 import stellics.transfer.DirectShipTransfer;
 import stellics.transfer.ShipTransferAction;
+import stellics.transfer.SmartCargoTransfer;
+import stellics.transfer.SmartShipTransfer;
 
 public class DialogFactory {
 
@@ -23,8 +25,9 @@ public class DialogFactory {
         ShipTransferAction shipTransfer;
 
         switch (option) {
-            case GLOBAL_CARGO:
-                // TODO finish me
+            case SMART_CARGO:
+                cargoTransfer = new SmartCargoTransfer();
+                return new CargoDialog(option, cargoTransfer, ui, plugin);
 
             case REQUEST_CARGO:
                 cargoTransfer = new DirectCargoTransfer(storageCargo, playerFleet.getCargo(), storage);
@@ -34,8 +37,9 @@ public class DialogFactory {
                 cargoTransfer = new DirectCargoTransfer(playerFleet.getCargo(), storageCargo, storage);
                 return new CargoDialog(option, cargoTransfer, ui, plugin);
 
-            case GLOBAL_SHIPS:
-                // TODO finish me
+            case SMART_SHIPS:
+                shipTransfer = new SmartShipTransfer();
+                return new FleetDialog(option, shipTransfer, ui, plugin);
 
             case REQUEST_SHIPS:
                 shipTransfer = new DirectShipTransfer(storageCargo.getMothballedShips(), playerFleet.getFleetData(),

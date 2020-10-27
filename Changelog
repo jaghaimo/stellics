@@ -1,5 +1,5 @@
 * unreleased - 1.1.0
-- Add Storage Board (intelligent easy cargo and ship withdrawal)
+- Add Storage Board (smart cargo and ship withdrawal)
 - Display sorted cargo on intel tab
 - Move tag_data.json to correct location
 
