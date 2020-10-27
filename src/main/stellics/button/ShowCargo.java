@@ -1,13 +1,21 @@
 package stellics.button;
 
+import java.awt.Color;
+
 import com.fs.starfarer.api.ui.IntelUIAPI;
+import com.fs.starfarer.api.util.Misc;
 
 import stellics.StorageBoard;
 
 public class ShowCargo extends Button {
 
     public ShowCargo() {
-        super("Swap");
+        super("Show Cargo");
+    }
+
+    @Override
+    public Color getColor() {
+        return Misc.getButtonTextColor();
     }
 
     @Override

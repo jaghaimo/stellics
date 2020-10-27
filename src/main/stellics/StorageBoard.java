@@ -65,7 +65,7 @@ public class StorageBoard extends BaseIntelPlugin {
 
     @Override
     public void createLargeDescription(CustomPanelAPI panel, float width, float height) {
-        float spacer = 10;
+        float spacer = 20;
         float controlWidth = 180;
         float displayWidth = width - controlWidth - spacer;
         ElementFactory factory = new ElementFactory(this, panel, height);

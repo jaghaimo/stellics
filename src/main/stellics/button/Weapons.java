@@ -8,20 +8,13 @@ import stellics.filter.IsNotWeapon;
 public class Weapons extends Button {
 
     public Weapons() {
-        super("Weapons");
+        super("Weapons", new IsNotWeapon());
     }
 
     @Override
     public void handle(StorageBoard board, IntelUIAPI ui) {
         super.handle(board, ui);
+        board.getButtonManager().setEnabledWeaponButtons(isStateOn());
         ui.updateUIForItem(board);
-    }
-
-    @Override
-    public Object getFilter() {
-        if (isStateOn()) {
-            return new IsNotWeapon();
-        }
-        return super.getFilter();
     }
 }

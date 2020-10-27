@@ -1,8 +1,9 @@
 package stellics.filter;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
+import stellics.button.Button;
 import stellics.button.ButtonManager;
 
 public class FilterFactory {
@@ -14,10 +15,44 @@ public class FilterFactory {
     }
 
     public List<CargoStackFilter> getCargoStackFilters() {
-        return Collections.emptyList();
+        List<CargoStackFilter> filters = new ArrayList<>();
+        List<Object> objects = extractFilters(buttonManager.getAllCargoButtons());
+        filters.addAll(convertToCargoStackFilters(objects));
+        return filters;
     }
 
     public List<FleetMemberFilter> getFleetMemberFilters() {
-        return Collections.emptyList();
+        List<FleetMemberFilter> filters = new ArrayList<>();
+        List<Object> objects = extractFilters(buttonManager.getAllShipButtons());
+        filters.addAll(convertToFleetMemberFilters(objects));
+        return filters;
+    }
+
+    private List<CargoStackFilter> convertToCargoStackFilters(List<Object> objects) {
+        List<CargoStackFilter> filters = new ArrayList<>();
+        for (Object object : objects) {
+            filters.add((CargoStackFilter) object);
+        }
+        return filters;
+    }
+
+    private List<FleetMemberFilter> convertToFleetMemberFilters(List<Object> objects) {
+        List<FleetMemberFilter> filters = new ArrayList<>();
+        for (Object object : objects) {
+            filters.add((FleetMemberFilter) object);
+        }
+        return filters;
+    }
+
+    private List<Object> extractFilters(List<Button> buttons) {
+        List<Object> filters = new ArrayList<>();
+        for (Button button : buttons) {
+            Object filter = button.getFilter();
+            if (filter == null) {
+                continue;
+            }
+            filters.add(filter);
+        }
+        return filters;
     }
 }

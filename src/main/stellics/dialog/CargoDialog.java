@@ -5,26 +5,20 @@ import com.fs.starfarer.api.campaign.CargoPickerListener;
 import com.fs.starfarer.api.campaign.CargoStackAPI;
 import com.fs.starfarer.api.campaign.InteractionDialogAPI;
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
-import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.ui.IntelUIAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
-import stellics.helper.MonthlyReportHelper;
+import stellics.transfer.CargoTransferAction;
 
 public class CargoDialog extends IntelAwareDialog implements CargoPickerListener {
 
     private DialogOption option;
-    private SubmarketAPI storage;
-    private CargoAPI sourceCargo;
-    private CargoAPI targetCargo;
+    private CargoTransferAction cargoTransfer;
 
-    public CargoDialog(DialogOption option, SubmarketAPI storage, CargoAPI sourceCargo, CargoAPI targetCargo,
-            IntelUIAPI ui, IntelInfoPlugin plugin) {
+    public CargoDialog(DialogOption option, CargoTransferAction cargoTransfer, IntelUIAPI ui, IntelInfoPlugin plugin) {
         super(ui, plugin);
         this.option = option;
-        this.storage = storage;
-        this.sourceCargo = sourceCargo;
-        this.targetCargo = targetCargo;
+        this.cargoTransfer = cargoTransfer;
     }
 
     @Override
@@ -34,14 +28,7 @@ public class CargoDialog extends IntelAwareDialog implements CargoPickerListener
 
     @Override
     public void pickedCargo(CargoAPI cargo) {
-        cargo.removeEmptyStacks();
-        filterInvalidCargo(cargo);
-        if (cargo.isEmpty()) {
-            dismiss();
-            return;
-        }
-        MonthlyReportHelper.registerTransfer(storage, cargo);
-        targetCargo.addAll(cargo);
+        cargoTransfer.transfer(cargo);
         refresh();
         dismiss();
     }
@@ -53,15 +40,7 @@ public class CargoDialog extends IntelAwareDialog implements CargoPickerListener
 
     @Override
     protected void show(InteractionDialogAPI dialog) {
-        dialog.showCargoPickerDialog(option.getTitle(), option.getAction(), "Cancel", false, 0f, sourceCargo, this);
-    }
-
-    private void filterInvalidCargo(CargoAPI cargo) {
-        for (CargoStackAPI c : cargo.getStacksCopy()) {
-            if (storage.isIllegalOnSubmarket(c, null)) {
-                cargo.removeStack(c);
-                sourceCargo.addFromStack(c);
-            }
-        }
+        dialog.showCargoPickerDialog(option.getTitle(), option.getAction(), "Cancel", false, 0f,
+                cargoTransfer.getSource(), this);
     }
 }

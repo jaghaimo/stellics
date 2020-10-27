@@ -1,32 +1,50 @@
 package stellics.button;
 
+import java.awt.Color;
+
 import com.fs.starfarer.api.ui.IntelUIAPI;
+import com.fs.starfarer.api.util.Misc;
 
 import stellics.StorageBoard;
-import stellics.filter.DummyFilter;
 
 public class Button implements ButtonHandler {
 
     private String title;
     private boolean isEnabled;
     private boolean isStateOn;
+    private Object filter;
 
-    public Button() {
+    private Button() {
         isEnabled = true;
         isStateOn = true;
     }
 
     public Button(String title) {
+        this();
         this.title = title;
     }
 
+    public Button(String title, Object filter) {
+        this(title);
+        this.filter = filter;
+    }
+
+    public Color getColor() {
+        if (isStateOn && isEnabled) {
+            return Misc.getHighlightColor();
+        }
+        return Misc.getGrayColor();
+    }
+
     public Object getFilter() {
-        return new DummyFilter();
+        if (isStateOn) {
+            return null;
+        }
+        return filter;
     }
 
     public String getTitle() {
-        String onOff = isStateOn ? ": On" : ": Off";
-        return title + onOff;
+        return title + getStateString();
     }
 
     public boolean isEnabled() {
@@ -35,6 +53,10 @@ public class Button implements ButtonHandler {
 
     public boolean isStateOn() {
         return isStateOn;
+    }
+
+    public void setEnabled(boolean isEnabled) {
+        this.isEnabled = isEnabled;
     }
 
     @Override
@@ -46,7 +68,15 @@ public class Button implements ButtonHandler {
         ui.updateUIForItem(board);
     }
 
-    public void toggle() {
+    protected void toggle() {
         isStateOn = !isStateOn;
     }
+
+    protected String getStateString() {
+        if (filter == null) {
+            return "";
+        }
+        return isStateOn ? ": On" : ": Off";
+    }
+
 }
