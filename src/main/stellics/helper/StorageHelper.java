@@ -2,6 +2,7 @@ package stellics.helper;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import com.fs.starfarer.api.Global;
@@ -65,6 +66,31 @@ public class StorageHelper {
         return getAllShips().size();
     }
 
+    public static List<SubmarketAPI> getAllWithAccess() {
+        List<SubmarketAPI> availableStorages = new ArrayList<>();
+        for (MarketAPI market : Global.getSector().getEconomy().getMarketsCopy()) {
+            if (Misc.playerHasStorageAccess(market)) {
+                SubmarketAPI storage = market.getSubmarket(Submarkets.SUBMARKET_STORAGE);
+                availableStorages.add(storage);
+            }
+        }
+        return availableStorages;
+    }
+
+    public static List<SubmarketAPI> getAllSortedWithAccess() {
+        List<SubmarketAPI> availableStorages = getAllWithAccess();
+        Collections.sort(availableStorages, new Comparator<SubmarketAPI>() {
+
+            @Override
+            public int compare(SubmarketAPI s1, SubmarketAPI s2) {
+                float s1distance = DistanceHelper.getDistanceToPlayerLY(s1.getMarket().getPrimaryEntity());
+                float s2distance = DistanceHelper.getDistanceToPlayerLY(s2.getMarket().getPrimaryEntity());
+                return Math.round(s1distance - s2distance);
+            }
+        });
+        return availableStorages;
+    }
+
     public static int getStorageCount() {
         return Global.getSector().getIntelManager().getIntelCount(CourierIntel.class, false);
     }
@@ -88,16 +114,5 @@ public class StorageHelper {
             IntelInfoPlugin plugin = new CourierIntel(submarket);
             intelManager.addIntel(plugin, true);
         }
-    }
-
-    private static List<SubmarketAPI> getAllWithAccess() {
-        List<SubmarketAPI> availableStorages = new ArrayList<>();
-        for (MarketAPI market : Global.getSector().getEconomy().getMarketsCopy()) {
-            if (Misc.playerHasStorageAccess(market)) {
-                SubmarketAPI storage = market.getSubmarket(Submarkets.SUBMARKET_STORAGE);
-                availableStorages.add(storage);
-            }
-        }
-        return availableStorages;
     }
 }

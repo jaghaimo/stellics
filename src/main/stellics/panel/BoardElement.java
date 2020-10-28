@@ -61,7 +61,7 @@ public abstract class BoardElement {
 
     protected float renderShips(List<FleetMemberAPI> ships, float currentHeight, float reservedSpace) {
         float actualHeight = height - currentHeight - reservedSpace;
-        TooltipMakerAPI shipView = panel.createUIElement(width, reservedSpace, true);
+        TooltipMakerAPI shipView = panel.createUIElement(width, actualHeight, true);
         shipView.showShips(ships, ships.size(), false, 5f);
         panel.addUIElement(shipView).inTL(0, currentHeight);
         return currentHeight + actualHeight;
