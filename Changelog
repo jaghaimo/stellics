@@ -1,4 +1,4 @@
-* unreleased - 1.1.0
+* Wed Oct 28 2020 - 1.1.0
 - Add Storage Board (smart cargo and ship withdrawal)
 - Display sorted cargo on intel tab
 - Move tag_data.json to correct location
