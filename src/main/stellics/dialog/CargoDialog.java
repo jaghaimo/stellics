@@ -28,6 +28,7 @@ public class CargoDialog extends IntelAwareDialog implements CargoPickerListener
 
     @Override
     public void pickedCargo(CargoAPI cargo) {
+        cargo.sort();
         cargoTransfer.transfer(cargo);
         refresh();
         dismiss();

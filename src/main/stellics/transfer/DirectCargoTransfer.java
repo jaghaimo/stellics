@@ -25,8 +25,8 @@ public class DirectCargoTransfer implements CargoTransferAction {
 
     @Override
     public void transfer(CargoAPI cargo) {
-        cargo.removeEmptyStacks();
         filterInvalidCargo(cargo);
+        cargo.removeEmptyStacks();
         if (cargo.isEmpty()) {
             return;
         }

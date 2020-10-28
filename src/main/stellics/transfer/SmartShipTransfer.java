@@ -1,6 +1,5 @@
 package stellics.transfer;
 
-import java.util.Arrays;
 import java.util.List;
 
 import com.fs.starfarer.api.Global;
@@ -39,8 +38,8 @@ public class SmartShipTransfer implements ShipTransferAction {
             if (!storageFleet.getMembersListCopy().contains(ship)) {
                 continue;
             }
-            ShipTransferAction transferAction = new DirectShipTransfer(storageFleet, playerFleet, storage);
-            transferAction.transfer(Arrays.asList(ship));
+            storageFleet.removeFleetMember(ship);
+            playerFleet.addFleetMember(ship);
             return;
         }
     }
