@@ -1,6 +1,7 @@
 package stellics.dialog;
 
 public enum DialogOption {
+    SMART_CARGO("Request", " cargo from storages"), SMART_SHIPS("Request", " ships from storages"),
     REQUEST_CARGO("Request", " cargo from storage"), REQUEST_SHIPS("Request", " ships from storage"),
     TRANSFER_CARGO("Transfer", " cargo to storage"), TRANSFER_SHIPS("Transfer", " ships to storage");
 

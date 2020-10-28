@@ -1,8 +1,9 @@
 {
     "id": "stellics",
     "name": "Stellar Logistics",
-    "version": "1.0.0",
     "author": "Jaghaimo",
+    "utility": true,
+    "version": "1.1.0",
     "description": "Courier services for Starsector",
     "gameVersion": "0.9.1a",
     "modPlugin": "stellics.StellicsMod",
