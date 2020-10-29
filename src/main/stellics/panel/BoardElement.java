@@ -12,6 +12,7 @@ import com.fs.starfarer.api.util.Misc;
 
 import stellics.StorageBoard;
 import stellics.button.Button;
+import stellics.helper.ConfigHelper;
 
 public abstract class BoardElement {
 
@@ -29,16 +30,15 @@ public abstract class BoardElement {
 
     public abstract void render();
 
-    protected float renderDoubleButton(Button buttonA, Button buttonB, float currentHeight) {
-        float spacer = 100f;
-        float widthB = 100f;
-        float widthA = width - widthB - spacer;
-        PositionAPI positionA = renderButton(buttonA, widthA);
-        positionA.inTL(0, currentHeight);
-        PositionAPI positionB = renderButton(buttonB, widthB);
-        positionB.inTL(widthA + spacer - 10f, currentHeight);
-        currentHeight += 30f;
-        return currentHeight;
+    protected void renderControls(Button buttonA, Button buttonB) {
+        float currentHeight = 0;
+        if (ConfigHelper.allowTransfer()) {
+            PositionAPI positionA = renderButton(buttonA, width);
+            positionA.inBR(10f, currentHeight);
+            currentHeight += 30f;
+        }
+        PositionAPI positionB = renderButton(buttonB, width);
+        positionB.inBR(10f, currentHeight);
     }
 
     protected float renderFilters(List<Button> buttons, float currentHeight) {
@@ -51,20 +51,16 @@ public abstract class BoardElement {
         return currentHeight;
     }
 
-    protected float renderCargo(CargoAPI cargo, float currentHeight, float reservedSpace) {
-        float actualHeight = height - currentHeight - reservedSpace;
-        TooltipMakerAPI cargoView = panel.createUIElement(width, actualHeight, true);
+    protected void renderCargo(CargoAPI cargo) {
+        TooltipMakerAPI cargoView = panel.createUIElement(width, height, true);
         cargoView.showCargo(cargo, cargo.getStacksCopy().size(), false, 5f);
-        panel.addUIElement(cargoView).inTL(0, currentHeight);
-        return currentHeight + actualHeight;
+        panel.addUIElement(cargoView).inTL(0, 0);
     }
 
-    protected float renderShips(List<FleetMemberAPI> ships, float currentHeight, float reservedSpace) {
-        float actualHeight = height - currentHeight - reservedSpace;
-        TooltipMakerAPI shipView = panel.createUIElement(width, actualHeight, true);
+    protected void renderShips(List<FleetMemberAPI> ships) {
+        TooltipMakerAPI shipView = panel.createUIElement(width, height, true);
         shipView.showShips(ships, ships.size(), false, 5f);
-        panel.addUIElement(shipView).inTL(0, currentHeight);
-        return currentHeight + actualHeight;
+        panel.addUIElement(shipView).inTL(0, 0);
     }
 
     private PositionAPI renderButton(Button button, float buttonWidth) {

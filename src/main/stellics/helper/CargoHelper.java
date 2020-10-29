@@ -2,22 +2,14 @@ package stellics.helper;
 
 import java.util.List;
 
-import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.CargoAPI;
 import com.fs.starfarer.api.campaign.CargoStackAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
-import com.fs.starfarer.api.util.Misc;
 
 public class CargoHelper {
 
-    private static enum CostType {
-        CARGO, FLEET
-    }
-
     public static int calculateCargoUpkeep(CargoAPI cargo) {
-        int spaceUsed = calculateCargoSpace(cargo);
-
-        return getCost(spaceUsed, CostType.CARGO);
+        return ConfigHelper.warehouseCargoCost() * calculateCargoSpace(cargo);
     }
 
     public static int calculateCargoSpace(CargoAPI cargo) {
@@ -25,14 +17,11 @@ public class CargoHelper {
         for (CargoStackAPI stack : cargo.getStacksCopy()) {
             cargoSpace += stack.getCargoSpace();
         }
-
         return (int) cargoSpace;
     }
 
     public static int calculateShipUpkeep(List<FleetMemberAPI> fleet) {
-        int spaceUsed = calculateShipSpace(fleet);
-
-        return getCost(spaceUsed, CostType.FLEET);
+        return ConfigHelper.warehouseFleetCost() * calculateShipSpace(fleet);
     }
 
     public static int calculateShipSpace(List<FleetMemberAPI> fleet) {
@@ -40,14 +29,6 @@ public class CargoHelper {
         for (FleetMemberAPI ship : fleet) {
             fleetCost += ship.getHullSpec().getOrdnancePoints(null);
         }
-
         return fleetCost;
-    }
-
-    private static int getCost(int spaceUsed, CostType type) {
-        String infix = Misc.ucFirst(type.name().toLowerCase());
-        int cost = Global.getSettings().getInt("warehouse" + infix + "Upkeep");
-
-        return spaceUsed * cost;
     }
 }

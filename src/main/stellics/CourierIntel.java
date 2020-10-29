@@ -19,6 +19,7 @@ import com.fs.starfarer.api.util.Misc;
 
 import stellics.dialog.DialogFactory;
 import stellics.dialog.DialogOption;
+import stellics.helper.ConfigHelper;
 import stellics.helper.DistanceHelper;
 
 public class CourierIntel extends BaseIntelPlugin {
@@ -55,18 +56,22 @@ public class CourierIntel extends BaseIntelPlugin {
         info.addSectionHeading(getMarketName() + " Cargo", baseColor, darkColor, Alignment.MID, 5f);
         fakeVerticalSeparator(info, width, 10f);
         showCargo(info);
-        fakeVerticalSeparator(info, width, 10f);
-        info.addButton("Request cargo from storage", DialogOption.REQUEST_CARGO, width, 20f, 5f);
-        info.addButton("Transfer cargo to storage", DialogOption.TRANSFER_CARGO, width, 20f, 5f);
+        if (ConfigHelper.allowTransfer()) {
+            fakeVerticalSeparator(info, width, 10f);
+            info.addButton("Request cargo from storage", DialogOption.REQUEST_CARGO, width, 20f, 5f);
+            info.addButton("Transfer cargo to storage", DialogOption.TRANSFER_CARGO, width, 20f, 5f);
+        }
 
         fakeVerticalSeparator(info, width, 20f);
 
         info.addSectionHeading(getMarketName() + " Ships", baseColor, darkColor, Alignment.MID, 5f);
         fakeVerticalSeparator(info, width, 10f);
         showShips(info);
-        fakeVerticalSeparator(info, width, 10f);
-        info.addButton("Request ships from storage", DialogOption.REQUEST_SHIPS, width, 20f, 5f);
-        info.addButton("Transfer ships to storage", DialogOption.TRANSFER_SHIPS, width, 20f, 5f);
+        if (ConfigHelper.allowTransfer()) {
+            fakeVerticalSeparator(info, width, 10f);
+            info.addButton("Request ships from storage", DialogOption.REQUEST_SHIPS, width, 20f, 5f);
+            info.addButton("Transfer ships to storage", DialogOption.TRANSFER_SHIPS, width, 20f, 5f);
+        }
     }
 
     @Override

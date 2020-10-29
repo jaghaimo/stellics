@@ -6,8 +6,6 @@ import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.ui.CustomPanelAPI;
 
 import stellics.StorageBoard;
-import stellics.button.RequestShips;
-import stellics.button.ShowCargo;
 import stellics.filter.FilterFactory;
 import stellics.helper.StorageHelper;
 
@@ -23,8 +21,6 @@ public class ShipDisplay extends BoardElement {
 
     @Override
     public void render() {
-        float currentHeight = 0;
-        currentHeight = renderShips(ships, currentHeight, 25f);
-        currentHeight = renderDoubleButton(new RequestShips(), new ShowCargo(), currentHeight);
+        renderShips(ships);
     }
 }

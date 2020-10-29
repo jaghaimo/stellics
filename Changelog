@@ -1,3 +1,7 @@
+* unreleased
+- Move control buttons to right column
+- Add option to disable courier transfers in settings.json
+
 * Wed Oct 28 2020 - 1.1.0
 - Add Storage Board (smart cargo and ship withdrawal)
 - Display sorted cargo on intel tab

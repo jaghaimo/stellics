@@ -1,6 +1,7 @@
 {
-    "warehouseCargoUpkeep": 1,
-    "warehouseFleetUpkeep": 10,
+    "allowTransfer": true,
+    "courierCargoTransferCostPerUnit": 1,
+    "courierShipTransferCostPerOP": 10,
     "graphics": {
         "illustrations": {
             "freighters": "graphics/illustrations/freighters.jpg"

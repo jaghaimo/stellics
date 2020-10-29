@@ -38,7 +38,7 @@ public class StorageBoard extends BaseIntelPlugin {
         return (StorageBoard) intel;
     }
 
-    public StorageBoard() {
+    private StorageBoard() {
         activePane = Pane.Cargo;
         buttonManager = new ButtonManager();
         filterFactory = new FilterFactory(buttonManager);
