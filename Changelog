@@ -1,6 +1,7 @@
 * unreleased
 - Move control buttons to right column
 - Add option to disable courier transfers in settings.json
+- Fix officer being "mothballed" together with a ship
 
 * Wed Oct 28 2020 - 1.1.0
 - Add Storage Board (smart cargo and ship withdrawal)

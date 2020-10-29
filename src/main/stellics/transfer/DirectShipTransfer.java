@@ -47,9 +47,10 @@ public class DirectShipTransfer implements ShipTransferAction {
     }
 
     private void transferShips(List<FleetMemberAPI> fleetMembers) {
-        for (FleetMemberAPI f : fleetMembers) {
-            sourceFleet.removeFleetMember(f);
-            targetFleet.addFleetMember(f);
+        for (FleetMemberAPI fleetMember : fleetMembers) {
+            fleetMember.setCaptain(null);
+            sourceFleet.removeFleetMember(fleetMember);
+            targetFleet.addFleetMember(fleetMember);
         }
     }
 }
