@@ -20,7 +20,7 @@ public class CourierTooltipCreator implements TooltipCreator {
             MarketAPI market = (MarketAPI) node.custom;
             tooltip.addTitle(market.getName());
         }
-        tooltip.addPara("Courier services for transfering cargo and ships", 10f);
+        tooltip.addPara("Courier services for transferring cargo and ships.", 10f);
         if (node.custom2 instanceof CargoAPI) {
             CargoAPI cargo = (CargoAPI) node.custom2;
             List<CargoStackAPI> cargoStacks = cargo.getStacksCopy();
