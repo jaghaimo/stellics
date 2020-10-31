@@ -30,22 +30,21 @@ public abstract class BoardElement {
 
     public abstract void render();
 
-    protected void renderControls(Button buttonA, Button buttonB) {
+    protected void renderControls(Button requestButton, Button locateButton, Button showButton) {
         float currentHeight = 0;
         if (ConfigHelper.allowTransfer()) {
-            PositionAPI positionA = renderButton(buttonA, width);
-            positionA.inBR(10f, currentHeight);
+            renderButton(requestButton, width).inBR(10f, currentHeight);
             currentHeight += 30f;
         }
-        PositionAPI positionB = renderButton(buttonB, width);
-        positionB.inBR(10f, currentHeight);
+        renderButton(locateButton, width).inBR(10f, currentHeight);
+        currentHeight += 30f;
+        renderButton(showButton, width).inBR(10f, currentHeight);
     }
 
     protected float renderFilters(List<Button> buttons, float currentHeight) {
         float buttonWidth = width;
         for (Button button : buttons) {
-            PositionAPI position = renderButton(button, buttonWidth);
-            position.inTR(10f, currentHeight);
+            renderButton(button, buttonWidth).inTR(10f, currentHeight);
             currentHeight += 30f;
         }
         return currentHeight;

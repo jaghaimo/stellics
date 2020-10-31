@@ -4,6 +4,7 @@ import com.fs.starfarer.api.ui.CustomPanelAPI;
 
 import stellics.StorageBoard;
 import stellics.button.ButtonManager;
+import stellics.button.LocateShips;
 import stellics.button.RequestShips;
 import stellics.button.ShowCargo;
 
@@ -20,7 +21,6 @@ public class ShipControl extends BoardElement {
         currentHeight = renderFilters(buttonManager.getShipSizeButtons(), currentHeight);
         currentHeight += 20f;
         currentHeight = renderFilters(buttonManager.getShipTypeButtons(), currentHeight);
-
-        renderControls(new RequestShips(), new ShowCargo());
+        renderControls(new RequestShips(), new LocateShips(), new ShowCargo());
     }
 }
