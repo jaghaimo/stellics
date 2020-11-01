@@ -7,7 +7,6 @@ import com.fs.starfarer.api.campaign.CargoAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.econ.MonthlyReport;
 import com.fs.starfarer.api.campaign.econ.MonthlyReport.FDNode;
-import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.impl.campaign.ids.Factions;
 import com.fs.starfarer.api.impl.campaign.shared.SharedData;
@@ -16,16 +15,16 @@ import stellics.CourierTooltipCreator;
 
 public class MonthlyReportHelper {
 
-    public static void registerTransfer(SubmarketAPI storage, CargoAPI cargo) {
-        FDNode transferNode = getTransferNode(storage.getMarket());
+    public static void registerTransfer(MarketAPI market, CargoAPI cargo) {
+        FDNode transferNode = getTransferNode(market);
         addToCargo(transferNode, cargo);
-        transferNode.upkeep += getUpkeep(CargoHelper.calculateCargoUpkeep(cargo), storage.getMarket());
+        transferNode.upkeep += getUpkeep(CargoHelper.calculateCargoUpkeep(cargo), market);
     }
 
-    public static void registerTransfer(SubmarketAPI storage, List<FleetMemberAPI> ships) {
-        FDNode transferNode = getTransferNode(storage.getMarket());
+    public static void registerTransfer(MarketAPI market, List<FleetMemberAPI> ships) {
+        FDNode transferNode = getTransferNode(market);
         addToCargo(transferNode, ships);
-        transferNode.upkeep += getUpkeep(CargoHelper.calculateShipUpkeep(ships), storage.getMarket());
+        transferNode.upkeep += getUpkeep(CargoHelper.calculateShipUpkeep(ships), market);
     }
 
     private static FDNode getTransferNode(MarketAPI market) {

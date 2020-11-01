@@ -31,7 +31,7 @@ public class SmartCargoTransfer implements CargoTransferAction {
         for (SubmarketAPI storage : storages) {
             CargoAPI storageCargo = storage.getCargo();
             CargoAPI commonCargo = getCommonCargo(cargo, storageCargo);
-            MonthlyReportHelper.registerTransfer(storage, cargo);
+            MonthlyReportHelper.registerTransfer(storage.getMarket(), cargo);
             playerCargo.addAll(commonCargo);
             storageCargo.removeAll(commonCargo);
             cargo.removeAll(commonCargo);

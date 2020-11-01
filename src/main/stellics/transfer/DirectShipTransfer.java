@@ -32,7 +32,7 @@ public class DirectShipTransfer implements ShipTransferAction {
         if (fleetCopy.isEmpty()) {
             return;
         }
-        MonthlyReportHelper.registerTransfer(storage, fleetCopy);
+        MonthlyReportHelper.registerTransfer(storage.getMarket(), fleetCopy);
         transferShips(fleetCopy);
     }
 
