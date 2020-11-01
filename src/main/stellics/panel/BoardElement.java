@@ -12,7 +12,6 @@ import com.fs.starfarer.api.util.Misc;
 
 import stellics.StorageBoard;
 import stellics.button.Button;
-import stellics.helper.ConfigHelper;
 
 public abstract class BoardElement {
 
@@ -30,13 +29,9 @@ public abstract class BoardElement {
 
     public abstract void render();
 
-    protected void renderControls(Button requestButton, Button locateButton, Button showButton) {
+    protected void renderControls(Button actionButton, Button showButton) {
         float currentHeight = 0;
-        if (ConfigHelper.allowTransfer()) {
-            renderButton(requestButton, width).inBR(10f, currentHeight);
-            currentHeight += 30f;
-        }
-        renderButton(locateButton, width).inBR(10f, currentHeight);
+        renderButton(actionButton, width).inBR(10f, currentHeight);
         currentHeight += 30f;
         renderButton(showButton, width).inBR(10f, currentHeight);
     }
