@@ -56,22 +56,14 @@ public class CourierIntel extends BaseIntelPlugin {
         info.addSectionHeading(getMarketName() + " Cargo", baseColor, darkColor, Alignment.MID, 5f);
         fakeVerticalSeparator(info, width, 10f);
         showCargo(info);
-        if (ConfigHelper.allowTransfer()) {
-            fakeVerticalSeparator(info, width, 10f);
-            info.addButton("Request cargo from storage", DialogOption.REQUEST_CARGO, width, 20f, 5f);
-            info.addButton("Transfer cargo to storage", DialogOption.TRANSFER_CARGO, width, 20f, 5f);
-        }
+        showConditionalButtons(info, width, DialogOption.REQUEST_CARGO, DialogOption.TRANSFER_CARGO);
 
         fakeVerticalSeparator(info, width, 20f);
 
         info.addSectionHeading(getMarketName() + " Ships", baseColor, darkColor, Alignment.MID, 5f);
         fakeVerticalSeparator(info, width, 10f);
         showShips(info);
-        if (ConfigHelper.allowTransfer()) {
-            fakeVerticalSeparator(info, width, 10f);
-            info.addButton("Request ships from storage", DialogOption.REQUEST_SHIPS, width, 20f, 5f);
-            info.addButton("Transfer ships to storage", DialogOption.TRANSFER_SHIPS, width, 20f, 5f);
-        }
+        showConditionalButtons(info, width, DialogOption.REQUEST_SHIPS, DialogOption.TRANSFER_SHIPS);
     }
 
     @Override
@@ -112,6 +104,14 @@ public class CourierIntel extends BaseIntelPlugin {
 
     private String getMarketName() {
         return storage.getMarket().getName();
+    }
+
+    private void showConditionalButtons(TooltipMakerAPI info, float width, DialogOption take, DialogOption put) {
+        if (ConfigHelper.allowTransfer()) {
+            fakeVerticalSeparator(info, width, 10f);
+            info.addButton(take.getAction(), take, width, 20f, 5f);
+            info.addButton(put.getAction(), put, width, 20f, 5f);
+        }
     }
 
     private void fakeVerticalSeparator(TooltipMakerAPI info, float width, float height) {
