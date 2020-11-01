@@ -125,6 +125,10 @@ public class StorageBoard extends BaseIntelPlugin {
         if (cargoCount == 0 && shipCount == 0) {
             return "You don't store anything in your storages.";
         }
+        return getFormattedDescription(cargoCount, shipCount, storageCount);
+    }
+
+    private String getFormattedDescription(int cargoCount, int shipCount, int storageCount) {
         String items = cargoCount != 1 ? "s " : " ";
         String ships = shipCount != 1 ? "s " : " ";
         String locations = storageCount != 1 ? " between %s locations." : " in one location.";
