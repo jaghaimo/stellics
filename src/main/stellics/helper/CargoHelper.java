@@ -37,5 +37,6 @@ public class CargoHelper {
         for (CargoStackAPI cargoStack : cargoStacks) {
             cargo.addFromStack(cargoStack);
         }
+        cargo.sort();
     }
 }
