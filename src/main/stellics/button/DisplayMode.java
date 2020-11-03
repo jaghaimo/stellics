@@ -7,15 +7,23 @@ import com.fs.starfarer.api.util.Misc;
 
 import stellics.StorageBoard;
 
-public class ShowShips extends Button {
+public class DisplayMode extends Button {
 
-    public ShowShips() {
-        super("Show Ships");
+    public final static String CARGO = "Display Cargo";
+    public final static String SHIPS = "Display Ships";
+
+    public DisplayMode(boolean isStateOn) {
+        super("", isStateOn);
     }
 
     @Override
     public Color getColor() {
         return Misc.getButtonTextColor();
+    }
+
+    @Override
+    public String getTitle() {
+        return isStateOn() ? CARGO : SHIPS;
     }
 
     @Override

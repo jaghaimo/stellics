@@ -1,7 +1,8 @@
 * unreleased
-- Move control buttons to right column
+- Add button to toggle between unified and per-storage view
+- Move control buttons to the right
 - Add option to disable courier transfers in settings.json
-- Fix officer being "mothballed" together with a ship
+- Fix officers being "mothballed" together with their ship
 
 * Wed Oct 28 2020 - 1.1.0
 - Add Storage Board (smart cargo and ship withdrawal)

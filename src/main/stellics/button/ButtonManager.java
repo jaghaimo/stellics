@@ -9,6 +9,7 @@ import com.fs.starfarer.api.loading.WingRole;
 
 public class ButtonManager {
 
+    private Button displayModeButton;
     private List<Button> cargoTypeButtons;
     private List<Button> cargoWeaponButtons;
     private List<Button> cargoFighterWingsButtons;
@@ -23,6 +24,13 @@ public class ButtonManager {
                 new FighterWingRole(WingRole.FIGHTER), new FighterWingRole(WingRole.INTERCEPTOR));
         shipSizeButtons = Arrays.asList(new Frigates(), new Destroyers(), new Cruisers(), new Capitals());
         shipTypeButtons = Arrays.asList(new Warships(), new Carriers(), new Civilians());
+    }
+
+    public Button getDisplayModeButton() {
+        if (displayModeButton == null) {
+            displayModeButton = new DisplayGroup(true);
+        }
+        return displayModeButton;
     }
 
     public List<Button> getAllCargoButtons() {

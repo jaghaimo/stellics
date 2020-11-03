@@ -3,7 +3,8 @@ package stellics.panel;
 import com.fs.starfarer.api.ui.CustomPanelAPI;
 
 import stellics.StorageBoard;
-import stellics.helper.ConfigHelper;
+import stellics.button.Button;
+import stellics.button.ButtonManager;
 
 public abstract class Display extends BoardElement {
 
@@ -13,7 +14,9 @@ public abstract class Display extends BoardElement {
 
     @Override
     public void render() {
-        if (ConfigHelper.allowTransfer()) {
+        ButtonManager buttonManager = board.getButtonManager();
+        Button displayMode = buttonManager.getDisplayModeButton();
+        if (displayMode.isStateOn()) {
             renderForTransfer();
         } else {
             renderForLocation();
