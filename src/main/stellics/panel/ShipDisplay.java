@@ -27,7 +27,11 @@ public class ShipDisplay extends Display {
     protected void renderForTransfer() {
         FilterFactory filterFactory = board.getFilterFactory();
         List<FleetMemberAPI> ships = StorageHelper.getAllShips(filterFactory.getFleetMemberFilters());
-        renderShips(ships);
+        if (ships.isEmpty()) {
+            renderEmpty(panel);
+        } else {
+            renderShips(ships);
+        }
     }
 
     @Override
@@ -41,9 +45,14 @@ public class ShipDisplay extends Display {
             renderStorageFleet(display, storage.getMarket(), fleetMembers);
         }
         if (!hasResults) {
-            display.addPara("There are no matching ships to display.", 10f);
+            renderEmpty(display);
         }
         panel.addUIElement(display);
+    }
+
+    @Override
+    protected String getEmptyDescription() {
+        return "There are no matching ships to display.";
     }
 
     private void renderStorageFleet(TooltipMakerAPI display, MarketAPI market, List<FleetMemberAPI> fleetMembers) {

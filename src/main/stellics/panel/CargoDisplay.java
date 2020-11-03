@@ -29,7 +29,11 @@ public class CargoDisplay extends Display {
     protected void renderForTransfer() {
         FilterFactory filterFactory = board.getFilterFactory();
         CargoAPI cargo = StorageHelper.getAllCargo(filterFactory.getCargoStackFilters());
-        renderCargo(cargo);
+        if (cargo.isEmpty()) {
+            renderEmpty(panel);
+        } else {
+            renderCargo(cargo);
+        }
     }
 
     @Override
@@ -46,9 +50,14 @@ public class CargoDisplay extends Display {
             renderStorageCargo(display, storage.getMarket(), displayedCargo);
         }
         if (!hasResults) {
-            display.addPara("There is no matching cargo to display.", 10f);
+            renderEmpty(display);
         }
         panel.addUIElement(display);
+    }
+
+    @Override
+    protected String getEmptyDescription() {
+        return "There is no matching cargo to display.";
     }
 
     private void renderStorageCargo(TooltipMakerAPI display, MarketAPI market, CargoAPI cargo) {

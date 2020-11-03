@@ -1,6 +1,7 @@
 package stellics.panel;
 
 import com.fs.starfarer.api.ui.CustomPanelAPI;
+import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
 import stellics.StorageBoard;
 import stellics.button.Button;
@@ -23,7 +24,20 @@ public abstract class Display extends BoardElement {
         }
     }
 
+    protected void renderEmpty(CustomPanelAPI customPanel) {
+        TooltipMakerAPI display = panel.createUIElement(width, height, true);
+        renderEmpty(display);
+        panel.addUIElement(display);
+    }
+
+    protected void renderEmpty(TooltipMakerAPI display) {
+        String description = getEmptyDescription();
+        display.addPara(description, 10f);
+    }
+
     protected abstract void renderForTransfer();
 
     protected abstract void renderForLocation();
+
+    protected abstract String getEmptyDescription();
 }
