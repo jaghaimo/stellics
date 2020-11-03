@@ -131,7 +131,7 @@ public class StorageBoard extends BaseIntelPlugin {
     private String getFormattedDescription(int cargoCount, int shipCount, int storageCount) {
         String items = cargoCount != 1 ? "s " : " ";
         String ships = shipCount != 1 ? "s " : " ";
-        String locations = storageCount != 1 ? " between %s locations." : " in one location.";
+        String locations = storageCount != 1 ? " in %s different locations." : " in one location.";
         return "You have %s item" + items + "and %s ship" + ships + "stored" + locations;
     }
 }

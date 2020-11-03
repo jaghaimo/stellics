@@ -44,7 +44,7 @@ public class StorageHelper {
 
     public static int getAllCargoCount() {
         CargoAPI cargo = getAllCargo();
-        return CargoHelper.calculateCargoSpace(cargo);
+        return CargoHelper.calculateCargoQuantity(cargo);
     }
 
     public static List<FleetMemberAPI> getAllShips() {

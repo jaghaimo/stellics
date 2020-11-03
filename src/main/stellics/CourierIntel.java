@@ -19,6 +19,7 @@ import com.fs.starfarer.api.util.Misc;
 
 import stellics.dialog.DialogFactory;
 import stellics.dialog.DialogOption;
+import stellics.helper.CargoHelper;
 import stellics.helper.ConfigHelper;
 import stellics.helper.DistanceHelper;
 
@@ -39,13 +40,13 @@ public class CourierIntel extends BaseIntelPlugin {
 
     @Override
     public void createIntelInfo(TooltipMakerAPI info, ListInfoMode mode) {
+        Color bulletColor = getBulletColorForMode(mode);
         info.addPara(getMarketName(), getTitleColor(mode), 0);
-        bullet(info);
-        info.addPara("Faction: %s", 3f, getBulletColorForMode(mode), getFactionForUIColors().getColor(),
-                getFactionName());
-        info.addPara("Distance: %sLY", 3f, getBulletColorForMode(mode), Misc.getHighlightColor(),
-                String.format("%.2f", DistanceHelper.getDistanceToPlayerLY(getMapLocation(null))));
-        unindent(info);
+        info.beginGridFlipped(300f, 1, Misc.getTextColor(), 80f, 10f);
+        info.addToGrid(0, 0, getStorageContent(), "Content", bulletColor);
+        info.addToGrid(0, 1, getFactionName(), "Faction", bulletColor);
+        info.addToGrid(0, 2, getDistance(), "Distance", bulletColor);
+        info.addGrid(3f);
     }
 
     @Override
@@ -98,12 +99,25 @@ public class CourierIntel extends BaseIntelPlugin {
         return false;
     }
 
+    private String getDistance() {
+        return String.format("%.2fLY", DistanceHelper.getDistanceToPlayerLY(getMapLocation(null)));
+    }
+
     private String getFactionName() {
         return getFactionForUIColors().getDisplayName();
     }
 
     private String getMarketName() {
         return storage.getMarket().getName();
+    }
+
+    private String getStorageContent() {
+        CargoAPI cargo = storage.getCargo();
+        int cargoCount = CargoHelper.calculateCargoQuantity(cargo);
+        int shipsCount = CargoHelper.calculateShipQuantity(cargo.getMothballedShips().getMembersListCopy());
+        String items = cargoCount != 1 ? "s" : "";
+        String ships = shipsCount != 1 ? "s" : "";
+        return String.format("%d item%s & %d ship%s", cargoCount, items, shipsCount, ships);
     }
 
     private void showConditionalButtons(TooltipMakerAPI info, float width, DialogOption take, DialogOption put) {
