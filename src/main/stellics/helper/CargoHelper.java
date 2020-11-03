@@ -31,4 +31,12 @@ public class CargoHelper {
         }
         return fleetCost;
     }
+
+    public static void replaceCargoStacks(CargoAPI cargo, List<CargoStackAPI> cargoStacks) {
+        cargo.clear();
+        for (CargoStackAPI cargoStack : cargoStacks) {
+            cargo.addFromStack(cargoStack);
+        }
+        cargo.sort();
+    }
 }

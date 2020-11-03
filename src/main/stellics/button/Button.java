@@ -24,6 +24,11 @@ public class Button implements ButtonHandler {
         this.title = title;
     }
 
+    public Button(String title, boolean isStateOn) {
+        this(title);
+        this.isStateOn = isStateOn;
+    }
+
     public Button(String title, Object filter) {
         this(title);
         this.filter = filter;

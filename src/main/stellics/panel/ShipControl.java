@@ -1,14 +1,13 @@
 package stellics.panel;
 
+import java.util.Arrays;
+
 import com.fs.starfarer.api.ui.CustomPanelAPI;
 
 import stellics.StorageBoard;
-import stellics.button.Button;
 import stellics.button.ButtonManager;
-import stellics.button.LocateShips;
 import stellics.button.RequestShips;
-import stellics.button.ShowCargo;
-import stellics.helper.ConfigHelper;
+import stellics.button.DisplayMode;
 
 public class ShipControl extends BoardElement {
 
@@ -19,21 +18,17 @@ public class ShipControl extends BoardElement {
     @Override
     public void render() {
         renderFilters();
-        renderControls(getActionButton(), new ShowCargo());
+        renderControls(new RequestShips());
     }
 
     private void renderFilters() {
         float currentHeight = 0;
         ButtonManager buttonManager = board.getButtonManager();
+        currentHeight = renderFilters(Arrays.asList(buttonManager.getDisplayModeButton(), new DisplayMode(true)),
+                currentHeight);
+        currentHeight += 20f;
         currentHeight = renderFilters(buttonManager.getShipSizeButtons(), currentHeight);
         currentHeight += 20f;
         currentHeight = renderFilters(buttonManager.getShipTypeButtons(), currentHeight);
-    }
-
-    private Button getActionButton() {
-        if (ConfigHelper.allowTransfer()) {
-            return new RequestShips();
-        }
-        return new LocateShips();
     }
 }
