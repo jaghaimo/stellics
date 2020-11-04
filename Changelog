@@ -1,4 +1,4 @@
-* unreleased - 1.2.0
+* Wed 04 Nov 2020 - 1.2.0
 - Add button to toggle between unified and per-storage view
 - Move control buttons to the right
 - Add option to disable courier transfers in settings.json
