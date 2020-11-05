@@ -1,5 +1,7 @@
 # Stellar Logistics
 
-Stellar Logistics mod adds a convenient courier service which gives the player a limited remote access to their storages.
-Using those services player can request cargo or ships from any owned storage, or transfer cargo or ships to any owned storage.
-In either case a fee dependant on distance between the player fleet and selected storage will be deducted at the end of the month.
+Stellar Logistics allows for a convenient browsing of the player's storage content letting the player to quickly locate cargo and ships.
+It also enables the player to easily retrieve and deposit cargo and ships (this feature can be disabled, enabled by default) from both main board and storage intel.
+Any transfer of cargo or ships will incur a fee (depends on the distance between the player fleet and selected storage) that will be collected at the end of the month.
+
+![Demo](https://i.imgur.com/w732zVe.gif)

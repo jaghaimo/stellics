@@ -83,5 +83,4 @@ public class Button implements ButtonHandler {
         }
         return isStateOn ? ": On" : ": Off";
     }
-
 }
