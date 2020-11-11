@@ -12,10 +12,11 @@ public class StellicsMod extends BaseModPlugin {
     @Override
     public void onGameLoad(boolean newGame) {
         init();
+        StorageBoard.removeInstance();
     }
 
     private void init() {
         CourierListener.getInstance();
-        StorageBoard.getInstance();
+        StellicsBoard.getInstance();
     }
 }

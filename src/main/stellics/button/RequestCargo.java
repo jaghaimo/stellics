@@ -6,7 +6,7 @@ import com.fs.starfarer.api.campaign.CargoAPI;
 import com.fs.starfarer.api.ui.IntelUIAPI;
 import com.fs.starfarer.api.util.Misc;
 
-import stellics.StorageBoard;
+import stellics.StellicsBoard;
 import stellics.dialog.CargoDialog;
 import stellics.dialog.DialogOption;
 import stellics.dialog.IntelAwareDialog;
@@ -27,7 +27,7 @@ public class RequestCargo extends Button {
     }
 
     @Override
-    public void handle(StorageBoard board, IntelUIAPI ui) {
+    public void handle(StellicsBoard board, IntelUIAPI ui) {
         FilterFactory filterFactory = board.getFilterFactory();
         CargoAPI cargo = StorageHelper.getAllCargo(filterFactory.getCargoStackFilters());
         CargoTransferAction cargoTransfer = new SmartCargoTransfer(cargo);

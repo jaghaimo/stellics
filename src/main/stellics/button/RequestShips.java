@@ -7,7 +7,7 @@ import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.ui.IntelUIAPI;
 import com.fs.starfarer.api.util.Misc;
 
-import stellics.StorageBoard;
+import stellics.StellicsBoard;
 import stellics.dialog.DialogOption;
 import stellics.dialog.FleetDialog;
 import stellics.dialog.IntelAwareDialog;
@@ -28,7 +28,7 @@ public class RequestShips extends Button {
     }
 
     @Override
-    public void handle(StorageBoard board, IntelUIAPI ui) {
+    public void handle(StellicsBoard board, IntelUIAPI ui) {
         FilterFactory filterFactory = board.getFilterFactory();
         List<FleetMemberAPI> ships = StorageHelper.getAllShips(filterFactory.getFleetMemberFilters());
         ShipTransferAction shipTransfer = new SmartShipTransfer(ships);

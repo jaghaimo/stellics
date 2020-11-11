@@ -11,7 +11,7 @@ import com.fs.starfarer.api.ui.Alignment;
 import com.fs.starfarer.api.ui.CustomPanelAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
-import stellics.StorageBoard;
+import stellics.StellicsBoard;
 import stellics.filter.FilterFactory;
 import stellics.helper.CargoHelper;
 import stellics.helper.CollectionHelper;
@@ -21,7 +21,7 @@ public class CargoDisplay extends Display {
 
     private boolean hasResults = false;
 
-    public CargoDisplay(StorageBoard board, CustomPanelAPI panel, float width, float height) {
+    public CargoDisplay(StellicsBoard board, CustomPanelAPI panel, float width, float height) {
         super(board, panel, width, height);
     }
 

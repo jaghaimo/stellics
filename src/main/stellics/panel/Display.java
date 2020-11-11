@@ -3,13 +3,13 @@ package stellics.panel;
 import com.fs.starfarer.api.ui.CustomPanelAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
-import stellics.StorageBoard;
+import stellics.StellicsBoard;
 import stellics.button.Button;
 import stellics.button.ButtonManager;
 
 public abstract class Display extends BoardElement {
 
-    public Display(StorageBoard board, CustomPanelAPI panel, float width, float height) {
+    public Display(StellicsBoard board, CustomPanelAPI panel, float width, float height) {
         super(board, panel, width, height);
     }
 

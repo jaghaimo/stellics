@@ -5,7 +5,7 @@ import java.awt.Color;
 import com.fs.starfarer.api.ui.IntelUIAPI;
 import com.fs.starfarer.api.util.Misc;
 
-import stellics.StorageBoard;
+import stellics.StellicsBoard;
 
 public class Button implements ButtonHandler {
 
@@ -65,7 +65,7 @@ public class Button implements ButtonHandler {
     }
 
     @Override
-    public void handle(StorageBoard board, IntelUIAPI ui) {
+    public void handle(StellicsBoard board, IntelUIAPI ui) {
         if (!isEnabled) {
             return;
         }

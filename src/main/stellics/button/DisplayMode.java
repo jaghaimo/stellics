@@ -5,7 +5,7 @@ import java.awt.Color;
 import com.fs.starfarer.api.ui.IntelUIAPI;
 import com.fs.starfarer.api.util.Misc;
 
-import stellics.StorageBoard;
+import stellics.StellicsBoard;
 
 public class DisplayMode extends Button {
 
@@ -27,7 +27,7 @@ public class DisplayMode extends Button {
     }
 
     @Override
-    public void handle(StorageBoard board, IntelUIAPI ui) {
+    public void handle(StellicsBoard board, IntelUIAPI ui) {
         board.togglePane();
         ui.updateUIForItem(board);
     }

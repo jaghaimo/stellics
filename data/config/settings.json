@@ -1,5 +1,6 @@
 {
-    "allowTransfer": true,
+    "enableStorageManagement": true,
+    "enableTransferWhileTraveling": false,
     "courierCargoTransferCostPerUnit": 1,
     "courierShipTransferCostPerOP": 10,
     "graphics": {
