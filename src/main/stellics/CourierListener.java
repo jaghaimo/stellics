@@ -6,7 +6,9 @@ import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.listeners.EconomyTickListener;
 import com.fs.starfarer.api.campaign.listeners.ListenerManagerAPI;
 
-import stellics.helper.StorageHelper;
+import stellics.helper.IntelHelper;
+import stellics.helper.PersonHelper;
+import stellics.helper.TransferHelper;
 
 public class CourierListener implements EconomyTickListener {
 
@@ -23,11 +25,13 @@ public class CourierListener implements EconomyTickListener {
 
     @Override
     public void reportEconomyTick(int iterIndex) {
-        StorageHelper.refreshIntel();
+        IntelHelper.recreate();
+        PersonHelper.addMissing();
     }
 
     @Override
     public void reportEconomyMonthEnd() {
-        StorageHelper.refreshIntel();
+        TransferHelper.transferCargo();
+        TransferHelper.trasnferShips();
     }
 }

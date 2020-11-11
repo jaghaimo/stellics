@@ -24,7 +24,7 @@ public class MonthlyReportHelper {
     public static void registerTransfer(MarketAPI market, List<FleetMemberAPI> ships) {
         FDNode transferNode = getTransferNode(market);
         addToCargo(transferNode, ships);
-        transferNode.upkeep += getUpkeep(CargoHelper.calculateShipUpkeep(ships), market);
+        transferNode.upkeep += getUpkeep(FleetMembersHelper.calculateShipUpkeep(ships), market);
     }
 
     private static FDNode getTransferNode(MarketAPI market) {
