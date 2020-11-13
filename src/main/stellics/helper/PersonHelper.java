@@ -8,12 +8,14 @@ import com.fs.starfarer.api.campaign.CommDirectoryEntryAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.characters.PersonAPI;
+import com.fs.starfarer.api.impl.campaign.events.OfficerManagerEvent;
+import com.fs.starfarer.api.impl.campaign.ids.Ranks;
 
 import stellics.filter.HasTag;
 
 public class PersonHelper {
 
-    private static String TAG = "stellics";
+    public static String TAG = "stellics";
 
     public static void addMissing() {
         for (SubmarketAPI submarket : StorageHelper.getAllWithAccess()) {
@@ -22,11 +24,21 @@ public class PersonHelper {
     }
 
     private static void addIfMissing(MarketAPI market) {
-        if (hasOfficial(market.getCommDirectory())) {
+        CommDirectoryAPI commDirectory = market.getCommDirectory();
+        removeAll(commDirectory);
+        if (hasOfficial(commDirectory)) {
             return;
         }
         PersonAPI person = getRandomPerson(market);
-        market.addPerson(person);
+        commDirectory.addPerson(person);
+    }
+
+    private static void removeAll(CommDirectoryAPI commDirectory) {
+        List<CommDirectoryEntryAPI> entries = commDirectory.getEntriesCopy();
+        CollectionHelper.reduce(entries, new HasTag(TAG));
+        for (CommDirectoryEntryAPI entry : entries) {
+            commDirectory.removeEntry(entry);
+        }
     }
 
     private static boolean hasOfficial(CommDirectoryAPI commDirectory) {
@@ -36,10 +48,15 @@ public class PersonHelper {
     }
 
     private static PersonAPI getRandomPerson(MarketAPI market) {
+        PersonAPI officer = OfficerManagerEvent.createOfficer(market.getFaction(), 1, true);
         PersonAPI person = Global.getFactory().createPerson();
         person.addTag(TAG);
         person.setFaction(market.getFactionId());
-        person.setPostId("Stellar Logistics agent");
+        person.setGender(officer.getGender());
+        person.setName(officer.getName());
+        person.setPortraitSprite(officer.getPortraitSprite());
+        person.setPostId(Ranks.POST_AGENT);
+        person.setRankId(Ranks.AGENT);
         return person;
     }
 }
