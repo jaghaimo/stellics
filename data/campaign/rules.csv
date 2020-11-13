@@ -1,8 +1,9 @@
 id,trigger,conditions,script,text,options,notes
 "#RULESET_NAME sl_clearLocalVars",,,,,,
-sl_populate,PopulateOptions,"$tag:stellics","unset $stellicsCustom
+sl_populate,PickGreeting,"$tag:stellics","unset $stellicsCustom
 unset $stellicsDefaultId
 unset $stellicsDefaultName
+ShowPersonVisual
 FireAll sl_trigger","After a short wait while cheerful on-hold music plays, your call is picked up.
 
 ""Hello and welcome to Stellar Logistics branch on $entity.name. My name is $personName, how may I be of help?""","1:sl_learnOption:""What can you tell me about your services""

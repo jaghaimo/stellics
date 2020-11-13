@@ -24,7 +24,9 @@ public class StellicsGetMarkets extends BaseCommandPlugin {
         options.clearOptions();
         for (SubmarketAPI submarket : StorageHelper.getAllWithAccess()) {
             MarketAPI market = submarket.getMarket();
-            options.addOption("\"" + market.getName() + "\"", market.getId());
+            // TODO remove currently docked market
+            // TODO add pagintation
+            options.addOption("Select " + market.getName(), market.getId());
         }
         options.addOption("Cut the comm link", "cutCommLink");
         return true;

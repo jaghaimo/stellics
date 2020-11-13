@@ -14,6 +14,6 @@ public class HasTag implements Filter<CommDirectoryEntryAPI> {
     @Override
     public boolean accept(CommDirectoryEntryAPI object) {
         PersonAPI person = (PersonAPI) object.getEntryData();
-        return person.getTags().contains("stellics");
+        return person.getTags().contains(tag);
     }
 }
