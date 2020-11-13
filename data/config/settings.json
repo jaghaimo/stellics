@@ -10,5 +10,8 @@
         "stellics": {
             "board": "graphics/icons/intel/all.png"
         }
-    }
+    },
+    "ruleCommandPackages": [
+        "stellics.rules"
+    ]
 }
