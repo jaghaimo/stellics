@@ -8,27 +8,43 @@ import com.fs.starfarer.api.campaign.OptionPanelAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.campaign.rules.MemoryAPI;
-import com.fs.starfarer.api.impl.campaign.rulecmd.BaseCommandPlugin;
+import com.fs.starfarer.api.impl.campaign.rulecmd.PaginatedOptions;
 import com.fs.starfarer.api.util.Misc.Token;
 
 import stellics.helper.StorageHelper;
 
-@Deprecated
-public class StellicsGetMarkets extends BaseCommandPlugin {
+public class StellicsGetMarkets extends PaginatedOptions {
+
+    private OptionPanelAPI options;
 
     @Override
     public boolean execute(String ruleId, InteractionDialogAPI dialog, List<Token> params,
             Map<String, MemoryAPI> memoryMap) {
 
-        OptionPanelAPI options = dialog.getOptionPanel();
+        super.execute(ruleId, dialog, params, memoryMap);
+        options = dialog.getOptionPanel();
+        clearAllOptions();
+        addAllMarkets();
+        addOptionAllPages("Cut the comm link", "cutCommLink");
+        showOptions();
+        return true;
+    }
+
+    private void clearAllOptions() {
         options.clearOptions();
+    }
+
+    private void addAllMarkets() {
         for (SubmarketAPI submarket : StorageHelper.getAllWithAccess()) {
             MarketAPI market = submarket.getMarket();
-            // TODO remove currently docked market
-            // TODO add pagintation
-            options.addOption("Select " + market.getName(), market.getId());
+            String marketId = market.getId();
+            addOption("Select " + market.getName(), marketId);
+            setTooltipForMarket(marketId, market);
         }
-        options.addOption("Cut the comm link", "cutCommLink");
-        return true;
+    }
+
+    private void setTooltipForMarket(String marketId, MarketAPI market) {
+        String tooltipString = "";
+        options.setTooltip(marketId, tooltipString);
     }
 }

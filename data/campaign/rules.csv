@@ -1,5 +1,5 @@
 id,trigger,conditions,script,text,options,notes
-"#RULESET_NAME sl_clearLocalVars",,,,,,
+"#RULESET_NAME Stellics",,,,,,
 sl_populate,PickGreeting,"$tag:stellics","unset $stellicsCustom
 unset $stellicsDefaultId
 unset $stellicsDefaultName
@@ -17,7 +17,7 @@ StellicsSetMarketName",,"1:sl_changeOption:""I need to change the destination of
 2:sl_cancelOption:""I want to cancel my contract""
 9:cutCommLink:Cut the comm link",
 sl_consolidateOption,DialogOptionSelected,"$option == sl_consolidateOption",,"""Certainly. Would you like it to be sent here or somewhere else?""","1:sl_hereOption:""Here please""
-2:sl_elseOption:""Somwhere else""
+2:sl_elseOption:""Show me my options""
 9:cutCommLink:Cut the comm link",
 sl_hereOption,DialogOptionSelected,"$option == sl_hereOption","$stellicsDefaultId = $market.id
 StellicsSetMarketName
@@ -31,7 +31,7 @@ $stellicsCustom == true","unset $stellicsCustom
 $stellicsDefaultId = $option
 StellicsSetMarketName
 FireBest sl_preSignTrigger",,,
-sl_preSignTrigger,sl_preSignTrigger,,,"You read through the contract and provided terms and conditions.
+sl_preSignTrigger,sl_preSignTrigger,,"SetTextHighlights $stellicsDefaultName","You read through the contract and provided terms and conditions.
 
 ""Stellar Logistics is a…"", you skip few paragraphs until you see the important part.
 
@@ -46,7 +46,8 @@ $stellicsDefaultId != null","$global.stellicsDefaultId = $stellicsDefaultId","Yo
 
 After signing the contract and exchanging a few pleasantries you cut the comm link.","9:cutCommLink:Cut the comm link",
 sl_changeOption,DialogOptionSelected,"$option == sl_changeOption",,,,"TODO"
-sl_cancelOption,DialogOptionSelected,"$option == sl_cancelOption","unset $global.stellicsDefaultId","$personName looks a bit disappointed but $heOrShe quickly hides it behind a professional smile. After a few minutes of running through some checks $heOrShe says:
+sl_cancelOption,DialogOptionSelected,"$option == sl_cancelOption","unset $global.stellicsDefaultId
+SetTextHighlights $stellicsDefaultName","$personName looks a bit disappointed but $heOrShe quickly hides it behind a professional smile. After a few minutes of running through some checks $heOrShe says:
 
 ""All done. The contract to move your ships and cargo to $stellicsDefaultName has been terminated.""
 
