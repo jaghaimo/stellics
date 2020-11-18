@@ -69,7 +69,6 @@ public class StellicsGetMarkets extends PaginatedOptions {
         if (starSystem == null) {
             return "Hyperspace";
         }
-
         return starSystem.getName();
     }
 }
