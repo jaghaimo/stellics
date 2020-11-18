@@ -4,7 +4,7 @@ sl_populate,PickGreeting,"$tag:stellics","unset $stellicsCustom
 unset $stellicsDefaultId
 unset $stellicsDefaultName
 ShowPersonVisual
-FireAll sl_trigger","After a short wait while cheerful on-hold music plays, your call is picked up.
+FireAll sl_populateTrigger","After a short wait while cheerful on-hold music plays, your call is picked up.
 
 ""Hello and welcome to Stellar Logistics branch on $entity.name. My name is $personName, how may I be of help?""","1:sl_learnOption:""What can you tell me about your services""
 2:sl_consolidateOption:""I’d like to consolidate my ships and cargo""",
@@ -12,9 +12,8 @@ sl_learnOption,DialogOptionSelected,"$option == sl_learnOption","FireAll sl_trig
 
 ""Stellar Logistics offers a recurring service that allows you to consolidate all your ships and cargo in one designated place. The transfer will happen at the beginning of the month and is billed based on the size of ships and cargo transferred in a given month.""","1:sl_consolidateOption:""I’d like to consolidate my ships and cargo""
 9:cutCommLink:Cut the comm link",
-sl_trigger,sl_trigger,"$global.stellicsDefaultId != null","$stellicsDefaultId = $global.stellicsDefaultId
-StellicsSetMarketName",,"1:sl_changeOption:""I need to change the destination of my deliveries""
-2:sl_cancelOption:""I want to cancel my contract""
+sl_populateTrigger,sl_populateTrigger,"$global.stellicsDefaultId != null","$stellicsDefaultId = $global.stellicsDefaultId
+StellicsSetMarketName",,"1:sl_cancelOption:""I want to cancel my contract""
 9:cutCommLink:Cut the comm link",
 sl_consolidateOption,DialogOptionSelected,"$option == sl_consolidateOption",,"""Certainly. Would you like it to be sent here or somewhere else?""","1:sl_hereOption:""Here please""
 2:sl_elseOption:""Show me my options""
@@ -45,7 +44,6 @@ sl_signOption,DialogOptionSelected,"$option == sl_signOption
 $stellicsDefaultId != null","$global.stellicsDefaultId = $stellicsDefaultId","You quickly scan through the e-paperwork verifying all key aspects of the service.
 
 After signing the contract and exchanging a few pleasantries you cut the comm link.","9:cutCommLink:Cut the comm link",
-sl_changeOption,DialogOptionSelected,"$option == sl_changeOption",,,,"TODO"
 sl_cancelOption,DialogOptionSelected,"$option == sl_cancelOption","unset $global.stellicsDefaultId
 SetTextHighlights $stellicsDefaultName","$personName looks a bit disappointed but $heOrShe quickly hides it behind a professional smile. After a few minutes of running through some checks $heOrShe says:
 
