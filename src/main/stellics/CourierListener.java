@@ -3,6 +3,7 @@ package stellics;
 import java.util.List;
 
 import com.fs.starfarer.api.Global;
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.listeners.EconomyTickListener;
 import com.fs.starfarer.api.campaign.listeners.ListenerManagerAPI;
 
@@ -31,7 +32,9 @@ public class CourierListener implements EconomyTickListener {
 
     @Override
     public void reportEconomyMonthEnd() {
-        TransferHelper.transferCargo();
-        TransferHelper.trasnferShips();
+        MarketAPI market = TransferHelper.getMarket();
+        if (market != null) {
+            TransferHelper.transferAll(market);
+        }
     }
 }

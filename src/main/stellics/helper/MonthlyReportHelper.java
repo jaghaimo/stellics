@@ -15,16 +15,26 @@ import stellics.CourierTooltipCreator;
 
 public class MonthlyReportHelper {
 
-    public static void registerTransfer(MarketAPI market, CargoAPI cargo) {
+    public static void registerCargoTransfer(MarketAPI market, CargoAPI cargo, float distance) {
         FDNode transferNode = getTransferNode(market);
         addToCargo(transferNode, cargo);
-        transferNode.upkeep += getUpkeep(CargoHelper.calculateCargoUpkeep(cargo), market);
+        transferNode.upkeep += getUpkeep(CargoHelper.calculateCargoUpkeep(cargo), distance);
     }
 
-    public static void registerTransfer(MarketAPI market, List<FleetMemberAPI> ships) {
+    public static void registerCargoTransfer(MarketAPI market, CargoAPI cargo) {
+        float distance = DistanceHelper.getDistanceToPlayerLY(market.getPrimaryEntity());
+        registerCargoTransfer(market, cargo, distance);
+    }
+
+    public static void registerShipsTransfer(MarketAPI market, List<FleetMemberAPI> ships, float distance) {
         FDNode transferNode = getTransferNode(market);
         addToCargo(transferNode, ships);
-        transferNode.upkeep += getUpkeep(FleetMembersHelper.calculateShipUpkeep(ships), market);
+        transferNode.upkeep += getUpkeep(FleetMembersHelper.calculateShipUpkeep(ships), distance);
+    }
+
+    public static void registerShipsTransfer(MarketAPI market, List<FleetMemberAPI> ships) {
+        float distance = DistanceHelper.getDistanceToPlayerLY(market.getPrimaryEntity());
+        registerShipsTransfer(market, ships, distance);
     }
 
     private static FDNode getTransferNode(MarketAPI market) {
@@ -60,7 +70,7 @@ public class MonthlyReportHelper {
         return (CargoAPI) node.custom2;
     }
 
-    private static float getUpkeep(int upkeep, MarketAPI market) {
-        return upkeep * (1 + DistanceHelper.getDistanceToPlayerLY(market.getPrimaryEntity()));
+    private static float getUpkeep(int upkeep, float distance) {
+        return upkeep * (1 + distance);
     }
 }

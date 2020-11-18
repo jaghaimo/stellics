@@ -30,7 +30,7 @@ public class DirectCargoTransfer implements CargoTransferAction {
         if (cargo.isEmpty()) {
             return;
         }
-        MonthlyReportHelper.registerTransfer(storage.getMarket(), cargo);
+        MonthlyReportHelper.registerCargoTransfer(storage.getMarket(), cargo);
         targetCargo.addAll(cargo);
     }
 
