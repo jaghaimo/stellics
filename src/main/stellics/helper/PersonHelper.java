@@ -23,9 +23,15 @@ public class PersonHelper {
         }
     }
 
+    public static void removeAll() {
+        for (SubmarketAPI submarket : StorageHelper.getAllWithAccess()) {
+            MarketAPI market = submarket.getMarket();
+            removeAll(market.getCommDirectory());
+        }
+    }
+
     private static void addIfMissing(MarketAPI market) {
         CommDirectoryAPI commDirectory = market.getCommDirectory();
-        removeAll(commDirectory);
         if (hasOfficial(commDirectory)) {
             return;
         }

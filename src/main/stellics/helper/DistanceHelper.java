@@ -33,11 +33,9 @@ public class DistanceHelper {
     private static boolean isInSameLocation(SectorEntityToken entity1, SectorEntityToken entity2) {
         LocationAPI entity1Location = entity1.getContainingLocation();
         LocationAPI entity2Location = entity2.getContainingLocation();
-
         if (entity1Location == null || entity2Location == null) {
             return false;
         }
-
         return entity1Location == entity2Location;
     }
 

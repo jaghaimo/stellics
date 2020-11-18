@@ -7,6 +7,7 @@ import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.listeners.EconomyTickListener;
 import com.fs.starfarer.api.campaign.listeners.ListenerManagerAPI;
 
+import stellics.helper.ConfigHelper;
 import stellics.helper.IntelHelper;
 import stellics.helper.PersonHelper;
 import stellics.helper.TransferHelper;
@@ -27,11 +28,18 @@ public class CourierListener implements EconomyTickListener {
     @Override
     public void reportEconomyTick(int iterIndex) {
         IntelHelper.recreate();
-        PersonHelper.addMissing();
+        if (ConfigHelper.canManage()) {
+            PersonHelper.addMissing();
+        } else {
+            PersonHelper.removeAll();
+        }
     }
 
     @Override
     public void reportEconomyMonthEnd() {
+        if (!ConfigHelper.canManage()) {
+            return;
+        }
         MarketAPI market = TransferHelper.getMarket();
         if (market != null) {
             TransferHelper.transferAll(market);
