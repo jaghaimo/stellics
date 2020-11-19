@@ -4,11 +4,11 @@ import com.fs.starfarer.api.Global;
 
 public class ConfigHelper {
 
-    public static boolean canManage() {
-        return Global.getSettings().getBoolean("enableStorageManagement");
+    public static boolean canTransferBetweenStorages() {
+        return Global.getSettings().getBoolean("enableTransferBetweenStorages");
     }
 
-    public static boolean canTransfer() {
+    public static boolean canTransferWhileTraveling() {
         return Global.getSettings().getBoolean("enableTransferWhileTraveling");
     }
 

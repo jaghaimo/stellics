@@ -10,7 +10,7 @@ FireAll sl_populateTrigger","After a short wait while cheerful on-hold music pla
 2:sl_consolidateOption:""I’d like to consolidate my ships and cargo""",
 sl_learnOption,DialogOptionSelected,"$option == sl_learnOption","FireAll sl_trigger","$personName’s eyes light up before $heOrShe starts $hisOrHer sales pitch.
 
-""Stellar Logistics offers a recurring service that allows you to consolidate all your ships and cargo in one designated place. The transfer will happen at the beginning of the month and is billed based on the size of ships and cargo transferred in a given month.""","1:sl_consolidateOption:""I’d like to consolidate my ships and cargo""
+""Stellar Logistics offers a recurring service that allows you to consolidate all your ships and cargo in one designated place. While contract is in place, our couriers will periodically transfer all legal contents of your storage to a place of your choosing. You will be billed based on the size of ships and cargo transferred in a given month.""","1:sl_consolidateOption:""I’d like to consolidate my ships and cargo""
 9:cutCommLink:Cut the comm link",
 sl_populateTrigger,sl_populateTrigger,"$global.stellicsDefaultId != null","$stellicsDefaultId = $global.stellicsDefaultId
 StellicsSetMarketName",,"1:sl_cancelOption:""I want to cancel my contract""
@@ -34,7 +34,7 @@ sl_preSignTrigger,sl_preSignTrigger,,"SetTextHighlights $stellicsDefaultName","Y
 
 ""Stellar Logistics is a…"", you skip few paragraphs until you see the important part.
 
-""At the beginning of each month Stellar Logistics couriers will transfer all $playerName’s ships and cargo to $stellicsDefaultName.""
+""During each month this contract is in place Stellar Logistics couriers will be transferring all $playerName’s ships and cargo to $stellicsDefaultName.""
 
 You once again start scanning the contract, read through liability clauses and definitions of legal cargo until you find another important part.
 

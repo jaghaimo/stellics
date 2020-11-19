@@ -31,7 +31,7 @@ public abstract class BoardElement {
     public abstract void render();
 
     protected void renderControls(Button actionButton) {
-        if (ConfigHelper.canTransfer()) {
+        if (ConfigHelper.canTransferWhileTraveling()) {
             renderButton(actionButton, width).inBR(10f, 0);
         }
     }

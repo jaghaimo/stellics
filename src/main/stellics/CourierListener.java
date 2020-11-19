@@ -28,16 +28,24 @@ public class CourierListener implements EconomyTickListener {
     @Override
     public void reportEconomyTick(int iterIndex) {
         IntelHelper.recreate();
-        if (ConfigHelper.canManage()) {
+        updateAgents();
+        transferBetweenStorages();
+    }
+
+    @Override
+    public void reportEconomyMonthEnd() {
+    }
+
+    private void updateAgents() {
+        if (ConfigHelper.canTransferBetweenStorages()) {
             PersonHelper.addMissing();
         } else {
             PersonHelper.removeAll();
         }
     }
 
-    @Override
-    public void reportEconomyMonthEnd() {
-        if (!ConfigHelper.canManage()) {
+    private void transferBetweenStorages() {
+        if (!ConfigHelper.canTransferBetweenStorages()) {
             return;
         }
         MarketAPI market = TransferHelper.getMarket();

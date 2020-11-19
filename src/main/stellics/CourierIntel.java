@@ -122,7 +122,7 @@ public class CourierIntel extends BaseIntelPlugin {
     }
 
     private void showConditionalButtons(TooltipMakerAPI info, float width, DialogOption take, DialogOption put) {
-        if (ConfigHelper.canTransfer()) {
+        if (ConfigHelper.canTransferWhileTraveling()) {
             Color baseColor = getFactionForUIColors().getBaseUIColor();
             Color darkColor = getFactionForUIColors().getDarkUIColor();
             fakeVerticalSeparator(info, width, 10f);
