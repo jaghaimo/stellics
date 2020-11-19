@@ -2,9 +2,9 @@ package stellics.helper;
 
 import java.util.List;
 
+import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.CargoAPI;
 import com.fs.starfarer.api.campaign.CargoStackAPI;
-import com.fs.starfarer.api.fleet.FleetMemberAPI;
 
 public class CargoHelper {
 
@@ -28,20 +28,13 @@ public class CargoHelper {
         return (int) cargoSpace;
     }
 
-    public static int calculateShipQuantity(List<FleetMemberAPI> fleet) {
-        return fleet.size();
-    }
-
-    public static int calculateShipUpkeep(List<FleetMemberAPI> fleet) {
-        return ConfigHelper.warehouseFleetCost() * calculateShipSpace(fleet);
-    }
-
-    public static int calculateShipSpace(List<FleetMemberAPI> fleet) {
-        int fleetCost = 0;
-        for (FleetMemberAPI ship : fleet) {
-            fleetCost += ship.getHullSpec().getOrdnancePoints(null);
+    public static CargoAPI makeCargoFromStacks(List<CargoStackAPI> cargoStacks) {
+        CargoAPI cargo = Global.getFactory().createCargo(true);
+        for (CargoStackAPI cargoStack : cargoStacks) {
+            cargo.addFromStack(cargoStack);
         }
-        return fleetCost;
+        cargo.sort();
+        return cargo;
     }
 
     public static void replaceCargoStacks(CargoAPI cargo, List<CargoStackAPI> cargoStacks) {

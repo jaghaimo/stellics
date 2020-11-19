@@ -4,8 +4,12 @@ import com.fs.starfarer.api.Global;
 
 public class ConfigHelper {
 
-    public static boolean allowTransfer() {
-        return Global.getSettings().getBoolean("allowTransfer");
+    public static boolean canManage() {
+        return Global.getSettings().getBoolean("enableStorageManagement");
+    }
+
+    public static boolean canTransfer() {
+        return Global.getSettings().getBoolean("enableTransferWhileTraveling");
     }
 
     public static int warehouseCargoCost() {

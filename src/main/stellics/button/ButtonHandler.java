@@ -2,9 +2,9 @@ package stellics.button;
 
 import com.fs.starfarer.api.ui.IntelUIAPI;
 
-import stellics.StorageBoard;
+import stellics.StellicsBoard;
 
 public interface ButtonHandler {
 
-    public void handle(StorageBoard board, IntelUIAPI ui);
+    public void handle(StellicsBoard board, IntelUIAPI ui);
 }

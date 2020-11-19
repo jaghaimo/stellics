@@ -1,13 +1,14 @@
 {
-    "allowTransfer": true,
+    "enableStorageManagement": true,
+    "enableTransferWhileTraveling": false,
     "courierCargoTransferCostPerUnit": 1,
     "courierShipTransferCostPerOP": 10,
     "graphics": {
-        "illustrations": {
-            "freighters": "graphics/illustrations/freighters.jpg"
-        },
         "stellics": {
             "board": "graphics/icons/intel/all.png"
         }
-    }
+    },
+    "ruleCommandPackages": [
+        "stellics.rules"
+    ]
 }

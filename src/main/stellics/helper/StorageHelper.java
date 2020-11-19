@@ -8,8 +8,6 @@ import java.util.List;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.CargoAPI;
 import com.fs.starfarer.api.campaign.CargoStackAPI;
-import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
-import com.fs.starfarer.api.campaign.comm.IntelManagerAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
@@ -34,12 +32,7 @@ public class StorageHelper {
             cargoStacks.addAll(submarket.getCargo().getStacksCopy());
         }
         CollectionHelper.reduce(cargoStacks, filters);
-        CargoAPI cargo = Global.getFactory().createCargo(true);
-        for (CargoStackAPI cargoStack : cargoStacks) {
-            cargo.addFromStack(cargoStack);
-        }
-        cargo.sort();
-        return cargo;
+        return CargoHelper.makeCargoFromStacks(cargoStacks);
     }
 
     public static int getAllCargoCount() {
@@ -95,24 +88,4 @@ public class StorageHelper {
         return Global.getSector().getIntelManager().getIntelCount(CourierIntel.class, false);
     }
 
-    public static void refreshIntel() {
-        IntelManagerAPI intelManager = Global.getSector().getIntelManager();
-        removeAll(intelManager);
-        addAll(intelManager);
-    }
-
-    private static void removeAll(IntelManagerAPI intelManager) {
-        IntelInfoPlugin intel = intelManager.getFirstIntel(CourierIntel.class);
-        while (intel != null) {
-            intelManager.removeIntel(intel);
-            intel = intelManager.getFirstIntel(CourierIntel.class);
-        }
-    }
-
-    private static void addAll(IntelManagerAPI intelManager) {
-        for (SubmarketAPI submarket : getAllWithAccess()) {
-            IntelInfoPlugin plugin = new CourierIntel(submarket);
-            intelManager.addIntel(plugin, true);
-        }
-    }
 }

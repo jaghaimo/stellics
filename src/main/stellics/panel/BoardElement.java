@@ -10,18 +10,18 @@ import com.fs.starfarer.api.ui.PositionAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 
-import stellics.StorageBoard;
+import stellics.StellicsBoard;
 import stellics.button.Button;
 import stellics.helper.ConfigHelper;
 
 public abstract class BoardElement {
 
-    protected StorageBoard board;
+    protected StellicsBoard board;
     protected CustomPanelAPI panel;
     protected float width;
     protected float height;
 
-    public BoardElement(StorageBoard board, CustomPanelAPI panel, float width, float height) {
+    public BoardElement(StellicsBoard board, CustomPanelAPI panel, float width, float height) {
         this.board = board;
         this.panel = panel;
         this.width = width;
@@ -31,7 +31,7 @@ public abstract class BoardElement {
     public abstract void render();
 
     protected void renderControls(Button actionButton) {
-        if (ConfigHelper.allowTransfer()) {
+        if (ConfigHelper.canTransfer()) {
             renderButton(actionButton, width).inBR(10f, 0);
         }
     }

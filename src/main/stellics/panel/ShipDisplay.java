@@ -10,7 +10,7 @@ import com.fs.starfarer.api.ui.Alignment;
 import com.fs.starfarer.api.ui.CustomPanelAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
-import stellics.StorageBoard;
+import stellics.StellicsBoard;
 import stellics.filter.FilterFactory;
 import stellics.helper.CollectionHelper;
 import stellics.helper.StorageHelper;
@@ -19,7 +19,7 @@ public class ShipDisplay extends Display {
 
     private boolean hasResults = false;
 
-    public ShipDisplay(StorageBoard board, CustomPanelAPI panel, float width, float height) {
+    public ShipDisplay(StellicsBoard board, CustomPanelAPI panel, float width, float height) {
         super(board, panel, width, height);
     }
 

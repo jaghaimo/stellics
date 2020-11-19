@@ -22,6 +22,7 @@ import stellics.dialog.DialogOption;
 import stellics.helper.CargoHelper;
 import stellics.helper.ConfigHelper;
 import stellics.helper.DistanceHelper;
+import stellics.helper.FleetMembersHelper;
 
 public class CourierIntel extends BaseIntelPlugin {
 
@@ -114,14 +115,14 @@ public class CourierIntel extends BaseIntelPlugin {
     private String getStorageContent() {
         CargoAPI cargo = storage.getCargo();
         int cargoCount = CargoHelper.calculateCargoQuantity(cargo);
-        int shipsCount = CargoHelper.calculateShipQuantity(cargo.getMothballedShips().getMembersListCopy());
+        int shipsCount = FleetMembersHelper.calculateShipQuantity(cargo.getMothballedShips().getMembersListCopy());
         String items = cargoCount != 1 ? "s" : "";
         String ships = shipsCount != 1 ? "s" : "";
         return String.format("%d item%s & %d ship%s", cargoCount, items, shipsCount, ships);
     }
 
     private void showConditionalButtons(TooltipMakerAPI info, float width, DialogOption take, DialogOption put) {
-        if (ConfigHelper.allowTransfer()) {
+        if (ConfigHelper.canTransfer()) {
             Color baseColor = getFactionForUIColors().getBaseUIColor();
             Color darkColor = getFactionForUIColors().getDarkUIColor();
             fakeVerticalSeparator(info, width, 10f);

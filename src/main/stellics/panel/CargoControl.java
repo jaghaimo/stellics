@@ -4,14 +4,14 @@ import java.util.Arrays;
 
 import com.fs.starfarer.api.ui.CustomPanelAPI;
 
-import stellics.StorageBoard;
+import stellics.StellicsBoard;
 import stellics.button.ButtonManager;
 import stellics.button.DisplayMode;
 import stellics.button.RequestCargo;
 
 public class CargoControl extends BoardElement {
 
-    public CargoControl(StorageBoard board, CustomPanelAPI panel, float width, float height) {
+    public CargoControl(StellicsBoard board, CustomPanelAPI panel, float width, float height) {
         super(board, panel, width, height);
     }
 
