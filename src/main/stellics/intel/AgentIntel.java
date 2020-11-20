@@ -3,12 +3,13 @@ package stellics.intel;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.characters.PersonAPI;
+import com.fs.starfarer.api.impl.campaign.intel.BaseIntelPlugin;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 
 import stellics.helper.StarSystemHelper;
 
-public class AgentIntel extends TransientIntel {
+public class AgentIntel extends BaseIntelPlugin {
 
     private PersonAPI person;
     private MarketAPI market;
@@ -16,7 +17,6 @@ public class AgentIntel extends TransientIntel {
     public AgentIntel(PersonAPI person, MarketAPI market) {
         this.person = person;
         this.market = market;
-        show();
     }
 
     @Override

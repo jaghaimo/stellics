@@ -19,13 +19,13 @@ public class IntelHelper {
     public static void fireIntel(String toOrFrom, List<FleetMemberAPI> ships, MarketAPI market, float distance) {
         int shipsCount = ships.size();
         float shipsCost = MonthlyReportHelper.getUpkeep(FleetMembersHelper.calculateShipUpkeep(ships), distance);
-        new ShipTransferIntel(toOrFrom, shipsCount, shipsCost, market);
+        fire(new ShipTransferIntel(toOrFrom, shipsCount, shipsCost, market));
     }
 
     public static void fireIntel(String toOrFrom, CargoAPI cargo, MarketAPI market, float distance) {
         int cargoCount = CargoHelper.calculateCargoQuantity(cargo);
         float cargoCost = MonthlyReportHelper.getUpkeep(CargoHelper.calculateCargoUpkeep(cargo), distance);
-        new CargoTransferIntel(toOrFrom, cargoCount, cargoCost, market);
+        fire(new CargoTransferIntel(toOrFrom, cargoCount, cargoCost, market));
     }
 
     public static void recreate() {
@@ -47,5 +47,11 @@ public class IntelHelper {
             IntelInfoPlugin plugin = new CourierIntel(submarket);
             intelManager.addIntel(plugin, true);
         }
+    }
+
+    private static void fire(IntelInfoPlugin intelInfo) {
+        IntelManagerAPI intelManager = Global.getSector().getIntelManager();
+        intelManager.addIntel(intelInfo);
+        intelManager.removeIntel(intelInfo);
     }
 }

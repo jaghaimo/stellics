@@ -2,12 +2,13 @@ package stellics.intel;
 
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
+import com.fs.starfarer.api.impl.campaign.intel.BaseIntelPlugin;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 
 import stellics.helper.StarSystemHelper;
 
-public abstract class TransferIntel extends TransientIntel {
+public abstract class TransferIntel extends BaseIntelPlugin {
 
     private String toOrFrom;
     private int transferCount;
@@ -19,7 +20,6 @@ public abstract class TransferIntel extends TransientIntel {
         this.transferCount = cargoCount;
         this.transferCost = totalCost;
         this.market = market;
-        show();
     }
 
     @Override
