@@ -47,7 +47,7 @@ public class TransferHelper {
             MarketAPI market = targetStorage.getMarket();
             transferAllShips(ships, sourceFleet, targetFleet);
             MonthlyReportHelper.registerShipsTransfer(market, ships, distance);
-            IntelHelper.fireIntel("to", ships, market, distance);
+            IntelHelper.fireTransfer("to", ships, market, distance);
         }
     }
 
@@ -60,7 +60,7 @@ public class TransferHelper {
             sourceCargo.removeAll(validCargo);
             targetCargo.addAll(validCargo);
             MonthlyReportHelper.registerCargoTransfer(market, validCargo, distance);
-            IntelHelper.fireIntel("to", validCargo, market, distance);
+            IntelHelper.fireTransfer("to", validCargo, market, distance);
         }
     }
 

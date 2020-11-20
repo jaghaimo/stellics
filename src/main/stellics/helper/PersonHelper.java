@@ -38,7 +38,7 @@ public class PersonHelper {
         }
         PersonAPI person = getRandomPerson(market);
         commDirectory.addPerson(person);
-        new AgentIntel(person, market);
+        IntelHelper.fire(new AgentIntel(person, market));
     }
 
     private static void removeAll(CommDirectoryAPI commDirectory) {

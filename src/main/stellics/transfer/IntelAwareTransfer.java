@@ -12,12 +12,12 @@ import stellics.helper.IntelHelper;
 public abstract class IntelAwareTransfer {
 
     public void fireIntel(CargoAPI cargo, MarketAPI market) {
-        IntelHelper.fireIntel(getToOrFrom(), cargo, market,
+        IntelHelper.fireTransfer(getToOrFrom(), cargo, market,
                 DistanceHelper.getDistanceToPlayerLY(market.getPrimaryEntity()));
     }
 
     public void fireIntel(List<FleetMemberAPI> ships, MarketAPI market) {
-        IntelHelper.fireIntel(getToOrFrom(), ships, market,
+        IntelHelper.fireTransfer(getToOrFrom(), ships, market,
                 DistanceHelper.getDistanceToPlayerLY(market.getPrimaryEntity()));
     }
 
