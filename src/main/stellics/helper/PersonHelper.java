@@ -12,6 +12,7 @@ import com.fs.starfarer.api.impl.campaign.events.OfficerManagerEvent;
 import com.fs.starfarer.api.impl.campaign.ids.Ranks;
 
 import stellics.filter.HasTag;
+import stellics.intel.AgentIntel;
 
 public class PersonHelper {
 
@@ -37,6 +38,7 @@ public class PersonHelper {
         }
         PersonAPI person = getRandomPerson(market);
         commDirectory.addPerson(person);
+        new AgentIntel(person, market);
     }
 
     private static void removeAll(CommDirectoryAPI commDirectory) {

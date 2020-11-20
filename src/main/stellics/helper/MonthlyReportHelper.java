@@ -15,6 +15,10 @@ import stellics.CourierTooltipCreator;
 
 public class MonthlyReportHelper {
 
+    public static float getUpkeep(int upkeep, float distance) {
+        return upkeep * (1 + distance);
+    }
+
     public static void registerCargoTransfer(MarketAPI market, CargoAPI cargo, float distance) {
         FDNode transferNode = getTransferNode(market);
         addToCargo(transferNode, cargo);
@@ -68,9 +72,5 @@ public class MonthlyReportHelper {
             node.custom2 = cargo;
         }
         return (CargoAPI) node.custom2;
-    }
-
-    private static float getUpkeep(int upkeep, float distance) {
-        return upkeep * (1 + distance);
     }
 }
