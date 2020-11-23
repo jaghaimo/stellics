@@ -1,11 +1,13 @@
 {
-    "enableStorageManagement": true,
+    "enableTransferBetweenStorages": true,
     "enableTransferWhileTraveling": false,
     "courierCargoTransferCostPerUnit": 1,
     "courierShipTransferCostPerOP": 10,
     "graphics": {
         "stellics": {
-            "board": "graphics/icons/intel/all.png"
+            "agent": "graphics/icons/markets/headquarters.png",
+            "board": "graphics/icons/intel/all.png",
+            "transfer": "graphics/icons/markets/trade_center.png"
         }
     },
     "ruleCommandPackages": [

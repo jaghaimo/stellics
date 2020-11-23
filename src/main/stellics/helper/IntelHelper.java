@@ -1,13 +1,38 @@
 package stellics.helper;
 
+import java.util.List;
+
 import com.fs.starfarer.api.Global;
+import com.fs.starfarer.api.campaign.CargoAPI;
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import com.fs.starfarer.api.campaign.comm.IntelManagerAPI;
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
+import com.fs.starfarer.api.fleet.FleetMemberAPI;
 
-import stellics.CourierIntel;
+import stellics.intel.CargoTransferIntel;
+import stellics.intel.CourierIntel;
+import stellics.intel.ShipTransferIntel;
 
 public class IntelHelper {
+
+    public static void fire(IntelInfoPlugin intelInfo) {
+        IntelManagerAPI intelManager = Global.getSector().getIntelManager();
+        intelManager.addIntel(intelInfo);
+        intelManager.removeIntel(intelInfo);
+    }
+
+    public static void fireTransfer(String toOrFrom, List<FleetMemberAPI> ships, MarketAPI market, float distance) {
+        int shipsCount = ships.size();
+        float shipsCost = MonthlyReportHelper.getUpkeep(FleetMembersHelper.calculateShipUpkeep(ships), distance);
+        fire(new ShipTransferIntel(toOrFrom, shipsCount, shipsCost, market));
+    }
+
+    public static void fireTransfer(String toOrFrom, CargoAPI cargo, MarketAPI market, float distance) {
+        int cargoCount = CargoHelper.calculateCargoQuantity(cargo);
+        float cargoCost = MonthlyReportHelper.getUpkeep(CargoHelper.calculateCargoUpkeep(cargo), distance);
+        fire(new CargoTransferIntel(toOrFrom, cargoCount, cargoCost, market));
+    }
 
     public static void recreate() {
         IntelManagerAPI intelManager = Global.getSector().getIntelManager();

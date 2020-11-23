@@ -5,7 +5,6 @@ import java.util.Map;
 
 import com.fs.starfarer.api.campaign.InteractionDialogAPI;
 import com.fs.starfarer.api.campaign.OptionPanelAPI;
-import com.fs.starfarer.api.campaign.StarSystemAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.campaign.rules.MemoryAPI;
@@ -14,6 +13,7 @@ import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.Misc.Token;
 
 import stellics.helper.DistanceHelper;
+import stellics.helper.StarSystemHelper;
 import stellics.helper.StorageHelper;
 
 public class StellicsGetMarkets extends PaginatedOptions {
@@ -43,7 +43,8 @@ public class StellicsGetMarkets extends PaginatedOptions {
     private void addAllMarkets() {
         for (SubmarketAPI submarket : submarkets) {
             MarketAPI market = submarket.getMarket();
-            addOption("Select " + market.getName() + " in " + getStarSystem(market.getStarSystem()), market.getId());
+            addOption("Select " + market.getName() + " in " + StarSystemHelper.getName(market.getStarSystem()),
+                    market.getId());
         }
     }
 
@@ -63,12 +64,5 @@ public class StellicsGetMarkets extends PaginatedOptions {
         options.setTooltip(marketId, tooltipString);
         options.setTooltipHighlights(marketId, factionName, distance);
         options.setTooltipHighlightColors(marketId, market.getFaction().getColor(), Misc.getHighlightColor());
-    }
-
-    private String getStarSystem(StarSystemAPI starSystem) {
-        if (starSystem == null) {
-            return "Hyperspace";
-        }
-        return starSystem.getName();
     }
 }

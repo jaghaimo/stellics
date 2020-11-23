@@ -10,7 +10,7 @@ import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import stellics.helper.MonthlyReportHelper;
 import stellics.helper.StorageHelper;
 
-public class SmartCargoTransfer implements CargoTransferAction {
+public class SmartCargoTransfer extends IntelAwareTransfer implements CargoTransferAction {
 
     private CargoAPI filteredCargo;
     private CargoAPI playerCargo;
@@ -35,6 +35,7 @@ public class SmartCargoTransfer implements CargoTransferAction {
             playerCargo.addAll(commonCargo);
             storageCargo.removeAll(commonCargo);
             cargo.removeAll(commonCargo);
+            fireIntel(commonCargo, storage.getMarket());
             if (cargo.isEmpty()) {
                 break;
             }
@@ -59,5 +60,10 @@ public class SmartCargoTransfer implements CargoTransferAction {
             float size = cargoStack.getSize();
             cargoStack.setSize(size / 2);
         }
+    }
+
+    @Override
+    protected String getToOrFrom() {
+        return "from";
     }
 }

@@ -9,7 +9,7 @@ import com.fs.starfarer.api.fleet.FleetMemberAPI;
 
 import stellics.helper.MonthlyReportHelper;
 
-public class DirectShipTransfer implements ShipTransferAction {
+public class DirectShipTransfer extends IntelAwareTransfer implements ShipTransferAction {
 
     private FleetDataAPI sourceFleet;
     private FleetDataAPI targetFleet;
@@ -34,6 +34,7 @@ public class DirectShipTransfer implements ShipTransferAction {
         }
         MonthlyReportHelper.registerShipsTransfer(storage.getMarket(), fleetCopy);
         transferShips(fleetCopy);
+        fireIntel(fleetCopy, storage.getMarket());
     }
 
     private List<FleetMemberAPI> filterFlagship(List<FleetMemberAPI> fleet) {
@@ -52,5 +53,13 @@ public class DirectShipTransfer implements ShipTransferAction {
             sourceFleet.removeFleetMember(fleetMember);
             targetFleet.addFleetMember(fleetMember);
         }
+    }
+
+    protected String getToOrFrom() {
+        FleetDataAPI storageFleet = storage.getCargo().getMothballedShips();
+        if (storageFleet == targetFleet) {
+            return "to";
+        }
+        return "from";
     }
 }

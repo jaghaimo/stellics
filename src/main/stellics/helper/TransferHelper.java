@@ -44,8 +44,10 @@ public class TransferHelper {
         FleetDataAPI targetFleet = targetStorage.getCargo().getMothballedShips();
         List<FleetMemberAPI> ships = sourceFleet.getMembersListCopy();
         if (!ships.isEmpty()) {
+            MarketAPI market = targetStorage.getMarket();
             transferAllShips(ships, sourceFleet, targetFleet);
-            MonthlyReportHelper.registerShipsTransfer(targetStorage.getMarket(), ships, distance);
+            MonthlyReportHelper.registerShipsTransfer(market, ships, distance);
+            IntelHelper.fireTransfer("to", ships, market, distance);
         }
     }
 
@@ -54,9 +56,11 @@ public class TransferHelper {
         CargoAPI targetCargo = targetStorage.getCargo();
         CargoAPI validCargo = getValidCargo(sourceCargo, targetStorage);
         if (!validCargo.isEmpty()) {
+            MarketAPI market = targetStorage.getMarket();
             sourceCargo.removeAll(validCargo);
             targetCargo.addAll(validCargo);
-            MonthlyReportHelper.registerCargoTransfer(targetStorage.getMarket(), validCargo, distance);
+            MonthlyReportHelper.registerCargoTransfer(market, validCargo, distance);
+            IntelHelper.fireTransfer("to", validCargo, market, distance);
         }
     }
 

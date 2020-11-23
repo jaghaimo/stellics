@@ -6,7 +6,7 @@ import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 
 import stellics.helper.MonthlyReportHelper;
 
-public class DirectCargoTransfer implements CargoTransferAction {
+public class DirectCargoTransfer extends IntelAwareTransfer implements CargoTransferAction {
 
     private CargoAPI sourceCargo;
     private CargoAPI targetCargo;
@@ -32,6 +32,7 @@ public class DirectCargoTransfer implements CargoTransferAction {
         }
         MonthlyReportHelper.registerCargoTransfer(storage.getMarket(), cargo);
         targetCargo.addAll(cargo);
+        fireIntel(cargo, storage.getMarket());
     }
 
     private void filterInvalidCargo(CargoAPI cargo) {
@@ -41,5 +42,14 @@ public class DirectCargoTransfer implements CargoTransferAction {
                 sourceCargo.addFromStack(c);
             }
         }
+    }
+
+    @Override
+    protected String getToOrFrom() {
+        CargoAPI storageCargo = storage.getCargo();
+        if (storageCargo == targetCargo) {
+            return "to";
+        }
+        return "from";
     }
 }

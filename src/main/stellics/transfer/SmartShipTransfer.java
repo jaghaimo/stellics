@@ -1,5 +1,6 @@
 package stellics.transfer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fs.starfarer.api.Global;
@@ -9,7 +10,7 @@ import com.fs.starfarer.api.fleet.FleetMemberAPI;
 
 import stellics.helper.StorageHelper;
 
-public class SmartShipTransfer implements ShipTransferAction {
+public class SmartShipTransfer extends IntelAwareTransfer implements ShipTransferAction {
 
     private List<FleetMemberAPI> filteredShips;
     private FleetDataAPI playerFleet;
@@ -26,21 +27,28 @@ public class SmartShipTransfer implements ShipTransferAction {
 
     @Override
     public void transfer(List<FleetMemberAPI> fleet) {
-        List<SubmarketAPI> storages = StorageHelper.getAllSortedWithAccess();
-        for (FleetMemberAPI ship : fleet) {
-            transfer(ship, storages);
+        List<SubmarketAPI> storages = StorageHelper.getAllWithAccess();
+        for (SubmarketAPI storage : storages) {
+            transfer(fleet, storage);
         }
     }
 
-    private void transfer(FleetMemberAPI ship, List<SubmarketAPI> storages) {
-        for (SubmarketAPI storage : storages) {
-            FleetDataAPI storageFleet = storage.getCargo().getMothballedShips();
+    private void transfer(List<FleetMemberAPI> fleet, SubmarketAPI storage) {
+        List<FleetMemberAPI> transferredShips = new ArrayList<>();
+        FleetDataAPI storageFleet = storage.getCargo().getMothballedShips();
+        for (FleetMemberAPI ship : fleet) {
             if (!storageFleet.getMembersListCopy().contains(ship)) {
                 continue;
             }
             storageFleet.removeFleetMember(ship);
             playerFleet.addFleetMember(ship);
-            return;
+            transferredShips.add(ship);
         }
+        fireIntel(transferredShips, storage.getMarket());
+    }
+
+    @Override
+    protected String getToOrFrom() {
+        return "from";
     }
 }

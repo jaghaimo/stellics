@@ -14,9 +14,9 @@ import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.impl.campaign.ids.Submarkets;
 import com.fs.starfarer.api.util.Misc;
 
-import stellics.CourierIntel;
 import stellics.filter.CargoStackFilter;
 import stellics.filter.FleetMemberFilter;
+import stellics.intel.CourierIntel;
 
 public class StorageHelper {
 
