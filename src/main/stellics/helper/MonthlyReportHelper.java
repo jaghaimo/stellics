@@ -54,7 +54,7 @@ public class MonthlyReportHelper {
     private static void addToCargo(FDNode node, CargoAPI cargo) {
         CargoAPI nodeCargo = getCargo(node);
         nodeCargo.addAll(cargo);
-        node.custom2 = nodeCargo;
+        nodeCargo.sort();
     }
 
     private static void addToCargo(FDNode node, List<FleetMemberAPI> ships) {
