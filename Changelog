@@ -1,10 +1,10 @@
-* unreleased - 1.3.0
+* Mon 23 Nov 2020 - 1.3.0
 - Transfer contracts: periodically transfer all cargo and ships to a designated storage
 - Add Stellar Logistics agents to markets with player owned storage
 - Add ability to sign a transfer contract through an agent
-- Show intel when agent arrives at a market
+- Show intel when the agent arrives at a market
 - Show intel when ship or cargo transfer happens
-- Disable courier transfer while traveling by default
+- Disable courier transfer while travelling by default
 - Enable courier transfer to a designated storage by default
 
 * Wed 04 Nov 2020 - 1.2.0
