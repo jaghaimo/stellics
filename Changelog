@@ -1,3 +1,6 @@
+* Sun 27 Dec 2020 - 1.3.1
+- Rephrase board description
+
 * Mon 23 Nov 2020 - 1.3.0
 - Transfer contracts: periodically transfer all cargo and ships to a designated storage
 - Add Stellar Logistics agents to markets with player owned storage
