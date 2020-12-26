@@ -55,11 +55,10 @@ public class StellicsBoard extends BaseIntelPlugin {
     public void createIntelInfo(TooltipMakerAPI info, ListInfoMode mode) {
         int cargoCount = StorageHelper.getAllCargoCount();
         int shipCount = StorageHelper.getAllShipCount();
-        int storageCount = StorageHelper.getStorageCount();
         info.addPara("Stellar Logistics", getTitleColor(mode), 0);
-        info.addPara(getDescription(cargoCount, shipCount, storageCount), 1f, getBulletColorForMode(mode),
-                Misc.getHighlightColor(), String.valueOf(cargoCount), String.valueOf(shipCount),
-                String.valueOf(storageCount));
+        info.addPara(getDescription(cargoCount, shipCount), 1f, getBulletColorForMode(mode), Misc.getHighlightColor(),
+                String.valueOf(cargoCount), String.valueOf(shipCount));
+        info.addPara("", 1f);
     }
 
     @Override
@@ -117,20 +116,16 @@ public class StellicsBoard extends BaseIntelPlugin {
         activePane = Pane.Cargo.equals(activePane) ? Pane.Ships : Pane.Cargo;
     }
 
-    private String getDescription(int cargoCount, int shipCount, int storageCount) {
-        if (storageCount == 0) {
-            return "You don't have any storages.";
-        }
+    private String getDescription(int cargoCount, int shipCount) {
         if (cargoCount == 0 && shipCount == 0) {
             return "You don't store anything in your storages.";
         }
-        return getFormattedDescription(cargoCount, shipCount, storageCount);
+        return getFormattedDescription(cargoCount, shipCount);
     }
 
-    private String getFormattedDescription(int cargoCount, int shipCount, int storageCount) {
+    private String getFormattedDescription(int cargoCount, int shipCount) {
         String items = cargoCount != 1 ? "s " : " ";
         String ships = shipCount != 1 ? "s " : " ";
-        String locations = storageCount != 1 ? " in %s different locations." : " in one location.";
-        return "You have %s item" + items + "and %s ship" + ships + "stored" + locations;
+        return "You have %s item" + items + "and %s ship" + ships + "stored.";
     }
 }
